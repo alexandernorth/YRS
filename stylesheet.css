@@ -1,0 +1,39 @@
+
+@font-face {
+    font-family: Capriola;
+    src: url(res/fnt/Capriola-Regular.ttf);
+    font-weight:400;
+}
+
+body * { margin:0; padding:0; }
+
+body {
+
+    background-color:#f6f6f6;
+
+}
+
+#name {
+    font-family:Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size:30pt;
+    color:#00A6EE;
+    text-shadow: 0.03em 0.03em 0 #ddd;
+    margin:15px 15px 5px 15px;
+}
+
+#canvas_wrapper {
+
+    height: 500px;
+    margin: 0px 15px 10px 15px;
+    background-color:#fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#canvas {
+
+    margin: 15px;
+
+}
+

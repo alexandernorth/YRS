@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Flock</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script type="text/javascript" src="lib/paper.js"></script>
+    <script type="text/javascript" src="js/flock_render.js"></script>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+
+    <script type="text/javascript" >
+
+        var resizeCanvas = function() {
+            var c       = $( "#canvas" );
+            var cDOM    = c.get(     0 );
+
+            var cWidth  = c.parent().innerWidth()  - 30;
+            var cHeight = c.parent().innerHeight() - 30;
+
+            // Resize canvas
+
+            c.css( {
+
+                width:  cWidth  + 'px', 
+                height: cHeight + 'px'
+
+            } );
+
+            cDOM.width  =  cWidth;
+            cDOM.height = cHeight;
+
+            paper.setup( $( "canvas" ).get( 0 ) );
+
+            var path = new paper.Path( [100, 100], [300, 50], [200, 150], [100, 100] );
+
+            path.strokeColor = 'black';
+
+            paper.view.draw();
+
+        };
+
+        $(document).ready( resizeCanvas );
+        $(window).resize(  resizeCanvas );
+        
+    </script>
+
+</head>
+
+<body>
+
+    <div id="name">Flock</div>
+
+    <div id="canvas_wrapper">
+        <canvas id="canvas" ></canvas>
+    </div>
+
+</body>
+
+</html>
