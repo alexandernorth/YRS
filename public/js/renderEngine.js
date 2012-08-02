@@ -21,8 +21,8 @@ function RenderEngine( canvas, world ) {
     }
 
     // Context aware call to RenderEngine.draw() onFrame, using closure.
-    var _this         =                                      this;
-    this.view.onFrame = function( e ) _this.draw.call( _this, e );
+    var _this         =                                        this;
+    this.view.onFrame = function( e ) { _this.draw.call( _this, e ); }
 
 }
 
@@ -31,7 +31,7 @@ RenderEngine.prototype.draw = function( e ) {
     this.world.step();
 
     for ( var i = 0 ; i < this.world.bodies.length; i++ ) {
-        
+
         this.world.bodies[ i ].draw( new Path( this.__symSeg ) );
 
     }
