@@ -58,13 +58,15 @@
 
                 }
 
-                // Calculate Separation
                 var distance, awayV;
                 var aversion          = new Point( 0, 0 );
+                var localCentre       = new Point( 0, 0 );
                 var neighboursTooNear =                 0;
                 for each ( var neighbour in neighbours ) {
 
                     distance = this.position.getDistance( neighbour.position, false );
+
+                    // Calculate Separation
 
                     if ( distance <= this.__personal ) {
 
@@ -73,7 +75,7 @@
                         awayV     =                                  awayV.normalize();
 
                         if( distance < 0.5 ) {
-                            awayV = awayV.multiply(                      this.__maxV );
+                            awayV = awayV.multiply(                  2 * this.__maxV );
                         } else {
                             awayV = awayV.multiply(           this.__maxV / distance );
                         }
@@ -83,14 +85,35 @@
                         neighboursTooNear++;
                     }
 
-                    if ( neighboursTooNear != 0 ) aversion.divide( neighboursTooNear );
+                    // Calculate centre of group
+
+                    localCentre = localCentre.add(                neighbour.position );
 
                 }
 
-                velocity      = velocity.add(      aversion );
-                this.position = this.position.add( velocity );
+                if ( neighboursTooNear != 0 ) aversion.divide(       neighboursTooNear );
+                if ( neighbours.length != 0 ) localCentre.divide(    neighbours.length );
 
-                if( !velocity.isZero() ) this.angle = velocity.angle;
+                var cohesion  = localCentre.subtract(                    this.position );
+                cohesion      = Point.min( cohesion, cohesion.normalize( this.__maxV ) );
+
+                var rebound   = new Point();
+
+                if ( this.position.x >  this.world.renderer.canvas.width ) rebound.x =  this.world.renderer.canvas.width - this.position.x
+                else if ( this.position.x < 0 )                            rebound.x =                                   - this.position.x;
+                else                                                       rebound.x =                                                   0;
+
+                if ( this.position.y > this.world.renderer.canvas.height ) rebound.y = this.world.renderer.canvas.height - this.position.y;
+                else if ( this.position.y < 0 )                            rebound.y =                                   - this.position.y;
+                else                                                       rebound.y =                                                   0;
+
+                //rebound       = rebound.multiply( 1000 );
+
+                velocity      = velocity.add(       rebound );
+                velocity      = velocity.add(      cohesion );
+                velocity      = velocity.add(      aversion );
+
+                this.targetV  =                      velocity;
 
             };
 

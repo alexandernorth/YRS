@@ -1,6 +1,6 @@
 function RenderEngine( canvas, world ) {
 
-    this.c            =                      canvas;
+    this.canvas       =                      canvas;
     this.world        =                       world;
     this.project      = new Project(              );
     this.view         = new View(          canvas );
@@ -8,6 +8,8 @@ function RenderEngine( canvas, world ) {
     this.project.activate();
 
     // Centralize initialized world
+
+    world.renderer    =                        this;
 
     for each ( body in world.bodies ) {
         
@@ -24,9 +26,9 @@ function RenderEngine( canvas, world ) {
 
 RenderEngine.prototype.draw = function( e ) {
 
-    for each ( entity in this.world.bodies ) entity.draw( new Path( this.__symSeg ) );
-
     this.world.step();
+
+    for each ( entity in this.world.bodies ) entity.draw( new Path( this.__symSeg ) );
 
 };
 
