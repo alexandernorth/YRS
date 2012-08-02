@@ -21,6 +21,6 @@ World.prototype.removeEntity = function( i ) {
 
 World.prototype.step = function() {
     
-    for each ( entity in this.bodies ) entity.step();
+    for ( var i = 0; i < this.bodies.length; i++ ) this.bodies[ i ].step();
 
 };

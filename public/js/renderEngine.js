@@ -11,8 +11,10 @@ function RenderEngine( canvas, world ) {
 
     world.renderer    =                        this;
 
-    for each ( body in world.bodies ) {
-        
+    var body;
+    for ( var i = 0; i < world.bodies.length; i++ ) {
+        body = world.bodies[ i ];
+        console.log( "shifting" );
         body.position = new Point( canvas.width  / 2, 
                                    canvas.height / 2 );
 
@@ -28,7 +30,11 @@ RenderEngine.prototype.draw = function( e ) {
 
     this.world.step();
 
-    for each ( entity in this.world.bodies ) entity.draw( new Path( this.__symSeg ) );
+    for ( var i = 0 ; i < this.world.bodies.length; i++ ) {
+        
+        this.world.bodies[ i ].draw( new Path( this.__symSeg ) );
+
+    }
 
 };
 
