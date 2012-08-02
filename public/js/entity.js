@@ -18,7 +18,7 @@ Entity.prototype.addStepFunction = function( func ) {
 
 Entity.prototype.draw = function( path ) {
 
-    this.path           = ( this.path || path );
+    this.path           =    ( this.path || path );
 
     this.path.rotate( this.angle - this.oldAngle );
     this.path.position  =            this.position;
