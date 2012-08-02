@@ -13,18 +13,25 @@ body {
 
 }
 
+#wrapper {
+
+    max-width: 800px;
+    min-width: 330px;
+    margin: 0 auto;
+}
+
 #name {
     font-family:Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size:30pt;
     color:#00A6EE;
     text-shadow: 0.03em 0.03em 0 #ddd;
-    margin:15px 15px 5px 15px;
+    margin:15px 0px 5px 15px;
 }
 
 #canvas_wrapper {
 
-    height: 500px;
-    margin: 0px 15px 10px 15px;
+    height: 600px;
+    margin: 15px;
     background-color:#fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;

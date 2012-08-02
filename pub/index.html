@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Flock</title>
+    <link rel="stylesheet" href="stylesheet.css">
+
+    <script type="text/javascript" src="lib/paper.js"></script>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="js/renderEngine.js"></script>
+    <script type="text/javascript" src="js/world.js"></script>
+    <script type="text/javascript" src="js/entity.js"></script>
+
+    <script type="text/javascript" >
+
+        paper.install( window );
+
+        var resizeCanvas = function() {
+            var c       = $( "#canvas" );
+            var cDOM    = c.get(     0 );
+
+            var cWidth  = c.parent().innerWidth()  - 30;
+            var cHeight = c.parent().innerHeight() - 30;
+
+            c.css( {
+
+                width:  cWidth  + 'px', 
+                height: cHeight + 'px'
+
+            } );
+
+            cDOM.width  =  cWidth;
+            cDOM.height = cHeight;
+
+        };
+
+        $(document).ready( resizeCanvas );
+        $(window).resize(  resizeCanvas );
+
+        $(document).ready( function(){
+
+            var world  = new World();
+
+            var step   = function () {
+
+                var velocity   = new Point( 0, 0 );
+
+                // Find neighbours
+                var neighbours =       new Array();
+
+                var distance;
+                for each ( var body in this.world.bodies ) {
+
+                    distance   = this.position.getDistance(               body.position, false );
+                    if ( distance <= this.__threshold && this != body ) neighbours.push(  body );
+
+                }
+
+                // Calculate Separation
+                var distance, awayV;
+                var aversion          = new Point( 0, 0 );
+                var neighboursTooNear =                 0;
+                for each ( var neighbour in neighbours ) {
+
+                    distance = this.position.getDistance( neighbour.position, false );
+
+                    if ( distance <= this.__personal ) {
+
+                        awayV     =       this.position.subtract( neighbour.position );
+                        awayV     =           awayV.isZero() ? Point.random() : awayV ;
+                        awayV     =                                  awayV.normalize();
+
+                        if( distance < 0.5 ) {
+                            awayV = awayV.multiply(                      this.__maxV );
+                        } else {
+                            awayV = awayV.multiply(           this.__maxV / distance );
+                        }
+
+                        aversion  = aversion.add(                              awayV );
+
+                        neighboursTooNear++;
+                    }
+
+                    if ( neighboursTooNear != 0 ) aversion.divide( neighboursTooNear );
+
+                }
+
+                velocity      = velocity.add(      aversion );
+                this.position = this.position.add( velocity );
+
+                if( !velocity.isZero() ) this.angle = velocity.angle;
+
+            };
+
+            var ent;
+            for ( i = 0; i < 10; i++ ) {
+                ent = new Entity();
+
+                ent.addStepFunction( step );
+                world.addEntity(      ent );
+
+            }
+
+            var engine = new RenderEngine( $( "#canvas" ).get( 0 ), world );
+
+        } );
+
+    </script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div id="name">Flock</div>
+
+        <div id="canvas_wrapper">
+            <canvas id="canvas" ></canvas>
+        </div>
+    </div>
+    
+</body>
+
+</html>
