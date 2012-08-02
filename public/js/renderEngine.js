@@ -14,9 +14,10 @@ function RenderEngine( canvas, world ) {
     var body;
     for ( var i = 0; i < world.bodies.length; i++ ) {
         body = world.bodies[ i ];
-        console.log( "shifting" );
         body.position = new Point( canvas.width  / 2, 
                                    canvas.height / 2 );
+
+        body.draw( new Path( this.__symSeg ) );
 
     }
 
@@ -28,13 +29,9 @@ function RenderEngine( canvas, world ) {
 
 RenderEngine.prototype.draw = function( e ) {
 
+    for ( var i = 0 ; i < this.world.bodies.length; i++ ) { this.world.bodies[ i ].draw(); }
+
     this.world.step();
-
-    for ( var i = 0 ; i < this.world.bodies.length; i++ ) {
-
-        this.world.bodies[ i ].draw( new Path( this.__symSeg ) );
-
-    }
 
 };
 
