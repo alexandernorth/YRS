@@ -38,17 +38,112 @@
 
         $(document).ready( resizeCanvas );
         $(window).resize(  resizeCanvas );
-
+        var engine;
         $(document).ready( function(){
 
             var world  = new World();
 
             var step   = function () {
 
+                var velocity          =       new Point();
+                var localCentre       =       new Point();
+                var meanAlign         =       new Point();
+                var aversion          =       new Point();
+                var neighbours        =                 0;
+                var neighboursTooNear =                 0;
+                var bodies            = this.world.bodies;
+                var                               body, d;
+
+                for ( var i = 0; i < bodies.length ; i++ ) {
+
+                    body =                                       bodies[ i ];
+                    d    = this.position.getDistance( body.position, false );
+
+                    // Is a Neighbour
+                    if ( d <= this.__threshold && this != body ){
+                        neighbours++;
+
+                        localCentre = localCentre.add(       body.position );
+                        meanAlign   = meanAlign.add(         body.velocity );
+
+                        if ( d <= this.__personal ) {
+
+                            neighboursTooNear++;
+
+                            if ( d < 0.5 ) {
+                                aversion = aversion.add( Point.random().subtract( 0.5 ).multiply( 4 ).multiply( this.__maxV ) );
+                            } else {
+                                aversion = aversion.add(             this.position.subtract( body.position ).normalize( 1/d ) );
+                            }
+
+
+                        }
+
+                    }
+
+                }
+
+                var separation = new Point();
+                var alignment  = new Point();
+                var cohesion   = new Point();
+                var mag;
+                if ( neighbours > 0 ) {
+
+                    // Cohesion
+                    localCentre = localCentre.divide(                              neighbours );
+                    cohesion    = localCentre.subtract(                         this.position ); 
+                    mag         =                                               cohesion.length;
+
+                    cohesion    = cohesion.multiply( Math.min( mag, 100 ) * this.__maxV / 100 );
+                    cohesion    = cohesion.subtract(                            this.velocity );
+
+                    //Alignment
+                    meanAlign   = meanAlign.divide(                                neighbours );
+                    alignment   = Point.min(    meanAlign, meanAlign.normalize( this.__maxF ) );
+
+                    if ( cohesion.length  > this.__maxF ) cohesion  = cohesion.normalize(  this.__maxF );
+                    if ( alignment.length > this.__maxF ) alignment = alignment.normalize( this.__maxF );
+
+                    cohesion    = cohesion.multiply(  this.__cohF );
+                    alignment   = alignment.multiply( this.__aliF );
+
+                }
+
+                if ( neighboursTooNear > 0 ) {
+                    separation = aversion.divide( neighboursTooNear ).multiply( this.__sepF );
+                }
+
+                velocity        = velocity.add( separation );
+                velocity        = velocity.add(  alignment );
+                velocity        = velocity.add(   cohesion );
+
+                if ( velocity.length > this.__maxV ) velocity = velocity.normalize( this.__maxV );
+
+                // Debug shapes
+/*                this.vArr ? this.vArr.remove() : undefined ;
+                this.vArr       = new Path( this.path.position, this.path.position.add( velocity.multiply( 10 ) ) );
+                this.vArr.strokeColor = 'black';
+
+                this.threshC ? this.threshC.remove() : undefined;
+                this.threshC = new Path.Circle( this.path.position, this.__threshold );
+                this.threshC.strokeColor = 'blue';
+                this.threshC.fillColor   = '#00A6EE';
+                this.threshC.opacity     = 0.01;
+
+                this.personalC ? this.personalC.remove() : undefined;
+                this.personalC  = new Path.Circle( this.path.position, this.__personal );
+
+                this.personalC.strokeColor = 'black';
+                this.personalC.fillColor   = 'red';
+                this.personalC.opacity     =  0.2;*/
+
+
+                this.targetV    = velocity;
+
             };
 
             var ent;
-            for ( i = 0; i < 10; i++ ) {
+            for ( i = 0; i < 100; i++ ) {
                 ent = new Entity();
 
                 ent.addStepFunction( step );
@@ -56,7 +151,7 @@
 
             }
 
-            var engine = new RenderEngine( $( "#canvas" ).get( 0 ), world );
+            engine = new RenderEngine( $( "#canvas" ).get( 0 ), world );
 
         } );
 

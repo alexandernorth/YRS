@@ -29,17 +29,20 @@ Entity.prototype.draw = function( path ) {
     this.position       = this.position.add( this.velocity );
     this.angle          =                this.velocity.angle;
 
-    this.path.rotate( this.angle - this.oldAngle );
-    this.path.position  =            this.position;
-    this.path.fillColor =               this.color;
-    this.oldAngle       =               this.angle;
+    this.path.rotate(                                this.angle - this.oldAngle );
+    this.path.fillColor =                                              this.color;
+    this.oldAngle       =                                              this.angle;
+
+    var cDim            =                           this.world.renderer.canvasDim;
+    this.path.position  = this.position.modulo( cDim ).add( cDim ).modulo( cDim );
 
 };
 
-Entity.prototype.__threshold =  80;
-Entity.prototype.__personal  =  25;
-Entity.prototype.__maxV      =   1;
+Entity.prototype.__threshold = 80;
+Entity.prototype.__personal  = 20;
+Entity.prototype.__maxV      = 4;
+Entity.prototype.__maxF      = 0.01;
 
-Entity.prototype.__sepF      =  100;
-Entity.prototype.__cohF      =   1;
-Entity.prototype.__aliF      =   1;
+Entity.prototype.__sepF      = 10;
+Entity.prototype.__cohF      = 2;
+Entity.prototype.__aliF      = 1;

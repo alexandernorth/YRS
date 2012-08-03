@@ -1,9 +1,10 @@
 function RenderEngine( canvas, world ) {
 
-    this.canvas       =                      canvas;
-    this.world        =                       world;
-    this.project      = new Project(              );
-    this.view         = new View(          canvas );
+    this.canvas       =                                   canvas;
+    this.canvasDim    = new Point( canvas.width, canvas.height );
+    this.world        =                                    world;
+    this.project      =              new Project(              );
+    this.view         =              new View(          canvas );
 
     this.project.activate();
 
@@ -23,13 +24,14 @@ function RenderEngine( canvas, world ) {
 
     // Context aware call to RenderEngine.draw() onFrame, using closure.
     var _this         =                                        this;
-    this.view.onFrame = function( e ) { _this.draw.call( _this, e ); }
+    this.view.onFrame = function( e ) { _this.draw.call( _this, e ); };
 
 }
 
 RenderEngine.prototype.draw = function( e ) {
 
-    for ( var i = 0 ; i < this.world.bodies.length; i++ ) { this.world.bodies[ i ].draw(); }
+    var bodies = this.world.bodies;
+    for ( var i = 0 ; i < bodies.length; i++ ) { bodies[ i ].draw(); }
 
     this.world.step();
 
