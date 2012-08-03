@@ -38,7 +38,7 @@ Entity.prototype.draw = function( path ) {
 
 };
 
-Entity.prototype.__threshold = 80;
+Entity.prototype.__threshold = 40;
 Entity.prototype.__personal  = 20;
 Entity.prototype.__maxV      = 5;
 Entity.prototype.__maxF      = 0.1;
