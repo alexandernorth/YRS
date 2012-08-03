@@ -1,22 +1,23 @@
 function RenderEngine( canvas, world ) {
 
-    this.canvas       =                                   canvas;
-    this.canvasDim    = new Point( canvas.width, canvas.height );
-    this.world        =                                    world;
-    this.project      =              new Project(              );
-    this.view         =              new View(          canvas );
+    this.canvas       =                                             canvas;
+    this.canvasDim    = new Rectangle( 0, 0, canvas.width, canvas.height );
+    this.traversible  = new Rectangle(                    this.canvasDim );
+    this.world        =                                              world;
+    this.project      = new Project(                                     );
+    this.view         = new View(                                 canvas );
 
     this.project.activate();
 
-    // Centralize initialized world
+    this.traversible.size  = this.traversible.size.subtract( 20 );
+    this.traversible.point = this.traversible.point.add(     10 );
 
     world.renderer    =                        this;
 
     var body;
     for ( var i = 0; i < world.bodies.length; i++ ) {
-        body = world.bodies[ i ];
-        body.position = new Point( canvas.width  / 2, 
-                                   canvas.height / 2 );
+        body          =      world.bodies[ i ];
+        body.position =  this.canvasDim.center;
 
         body.draw( new Path( this.__symSeg ) );
 

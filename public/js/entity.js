@@ -33,14 +33,14 @@ Entity.prototype.draw = function( path ) {
     this.path.fillColor =                                              this.color;
     this.oldAngle       =                                              this.angle;
 
-    var cDim            =                           this.world.renderer.canvasDim;
+    var cDim            =                      this.world.renderer.canvasDim.size;
     this.path.position  = this.position.modulo( cDim ).add( cDim ).modulo( cDim );
 
 };
 
 Entity.prototype.__threshold = 80;
 Entity.prototype.__personal  = 20;
-Entity.prototype.__maxV      = 4;
+Entity.prototype.__maxV      = 5;
 Entity.prototype.__maxF      = 0.1;
 
 Entity.prototype.__sepF      = 70;

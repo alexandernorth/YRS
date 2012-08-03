@@ -83,10 +83,12 @@
 
                 }
 
-                var separation = new Point();
-                var alignment  = new Point();
-                var cohesion   = new Point();
-                var mag;
+                var separation  =                     new Point();
+                var alignment   =                     new Point();
+                var cohesion    =                     new Point();
+                var rebound     =                     new Point();
+                var traversible = this.world.renderer.traversible;
+                var                                           mag;
                 if ( neighbours > 0 ) {
 
                     // Cohesion
@@ -110,9 +112,18 @@
                 }
 
                 if ( neighboursTooNear > 0 ) {
-                    separation = aversion.divide( neighboursTooNear ).multiply( this.__sepF );
+                    separation  = aversion.divide( neighboursTooNear ).multiply( this.__sepF );
                 }
 
+
+
+                if ( !traversible.contains( this.position ) ) {
+
+                    rebound = traversible.center.subtract( this.position );
+
+                }
+
+                velocity        = velocity.add(    rebound );
                 velocity        = velocity.add( separation );
                 velocity        = velocity.add(  alignment );
                 velocity        = velocity.add(   cohesion );
@@ -136,7 +147,6 @@
                 this.personalC.strokeColor = 'black';
                 this.personalC.fillColor   = 'red';
                 this.personalC.opacity     =  0.2;*/
-
 
                 this.targetV    = velocity;
 
