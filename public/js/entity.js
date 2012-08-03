@@ -22,8 +22,8 @@ Entity.prototype.draw = function( path ) {
 
     this.path           = ( this.path || path );
 
-    this.velocity       = this.velocity.multiply( 0.9 ).add( 
-                          this.targetV.multiply(  0.1 ) 
+    this.velocity       = this.velocity.multiply( 0.99 ).add( 
+                          this.targetV.multiply(  0.01 ) 
     );
 
     this.position       = this.position.add( this.velocity );
@@ -41,8 +41,8 @@ Entity.prototype.draw = function( path ) {
 Entity.prototype.__threshold = 80;
 Entity.prototype.__personal  = 20;
 Entity.prototype.__maxV      = 4;
-Entity.prototype.__maxF      = 0.01;
+Entity.prototype.__maxF      = 0.1;
 
-Entity.prototype.__sepF      = 10;
-Entity.prototype.__cohF      = 2;
-Entity.prototype.__aliF      = 1;
+Entity.prototype.__sepF      = 70;
+Entity.prototype.__cohF      = 5;
+Entity.prototype.__aliF      = 5;
