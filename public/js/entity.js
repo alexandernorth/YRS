@@ -1,12 +1,11 @@
 function Entity() {
     
-    this.position = new Point( 0, 0 );
-    this.rotation =                 0;
-    this.color    =         '#00A6EE';
-    this.angle    =                 0;
-    this.oldAngle =               -90;
-    this.velocity = new Point( 0, 0 );
-    this.targetV  = new Point( 0, 0 );
+    this.position = new Point();
+    this.color    =   '#00A6EE';
+    this.angle    =           0;
+    this.oldAngle =         -90;
+    this.velocity = new Point();
+    this.targetV  = new Point();
 
     this.step     = function() { return; };
 
@@ -20,7 +19,7 @@ Entity.prototype.addStepFunction = function( func ) {
 
 Entity.prototype.draw = function( path ) {
 
-    this.path           = ( this.path || path );
+    this.path           =              ( this.path || path );
 
     this.velocity       = this.velocity.multiply( 0.99 ).add( 
                           this.targetV.multiply(  0.01 ) 
@@ -29,20 +28,19 @@ Entity.prototype.draw = function( path ) {
     this.position       = this.position.add( this.velocity );
     this.angle          =                this.velocity.angle;
 
-    this.path.rotate(                                this.angle - this.oldAngle );
-    this.path.fillColor =                                              this.color;
-    this.oldAngle       =                                              this.angle;
-
-    var cDim            =                      this.world.renderer.canvasDim.size;
-    this.path.position  = this.position.modulo( cDim ).add( cDim ).modulo( cDim );
+    this.path.rotate(           this.angle - this.oldAngle );
+    this.path.fillColor =                         this.color;
+    this.oldAngle       =                         this.angle;
+    this.path.position  =                      this.position;
 
 };
 
-Entity.prototype.__threshold = 40;
-Entity.prototype.__personal  = 20;
-Entity.prototype.__maxV      = 5;
-Entity.prototype.__maxF      = 0.1;
+Entity.prototype.__threshold     = 1600;
+Entity.prototype.__personal      =  400;
+Entity.prototype.__effectiveZero = 0.25;
+Entity.prototype.__maxV          =    5;
+Entity.prototype.__maxF          =  0.1;
 
-Entity.prototype.__sepF      = 70;
-Entity.prototype.__cohF      = 5;
-Entity.prototype.__aliF      = 5;
+Entity.prototype.__sepF          =   70;
+Entity.prototype.__cohF          =    5;
+Entity.prototype.__aliF          =    5;
