@@ -15,7 +15,7 @@ body {
 
 #wrapper {
 
-    max-width: 800px;
+    max-width: 1000px;
     min-width: 330px;
     margin: 0 auto;
 }
@@ -30,7 +30,7 @@ body {
 
 #canvas_wrapper {
 
-    height: 600px;
+    height: 800px;
     margin: 15px;
     background-color:#fff;
     -webkit-border-radius: 10px;

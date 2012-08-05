@@ -7,10 +7,11 @@
     <title>Flock</title>
     <link rel="stylesheet" href="res/styles/stylesheet.css">
 
-    <script type="text/javascript" src="lib/paper.js"></script>
+    <!--<script type="text/javascript" src="lib/paper.js"></script>-->
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/glmatrix.js"></script>
-    <script type="text/javascript" src="js/renderEngine.js"></script>
+    <script type="text/javascript" src="js/webglRenderEngine.js"></script>
+    <!--<script type="text/javascript" src="js/canvasRenderEngine.js"></script>-->
     <script type="text/javascript" src="js/world.js"></script>
     <script type="text/javascript" src="js/entity.js"></script>
 
@@ -136,6 +137,7 @@
                 }
 
                 if ( neighboursTooNear > 0 ) {
+
                     vec2.scale( separation, 1 / neighboursTooNear, separation );
                     vec2.scale( separation,           this.__sepF, separation );
 
@@ -187,9 +189,45 @@
 
             }
 
-            engine = new RenderEngine( $( "#canvas" ).get( 0 ), world );
+            var c  = $( "#canvas" ).get( 0 );
+
+            try {
+
+                engine = new WebGLRenderEngine(  c, world );
+
+            }
+            catch( e ) {
+                console.log( "reverting", e );
+                //engine = new CanvasRenderEngine( c, world );
+
+            }
 
         } );
+
+    </script>
+
+    <script type="x-shader/x-vertex" id="vertexShader" >
+
+        attribute vec3 aVertex;
+        uniform   mat4 uMatrix;
+
+        void main(void) {
+
+            gl_Position = uMatrix * vec4( aVertex, 1.0);
+
+        }
+
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragShader" >
+        precision mediump float;
+
+        void main(void) {
+
+            gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
+            
+        }
+
 
     </script>
 
