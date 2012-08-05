@@ -15,6 +15,7 @@ World.prototype.addEntity = function( entity ) {
 World.prototype.removeEntity = function( i ) {
 
     this.bodies[ i ].world   =        null;
+    this.bodies[ i ].worldId =        null;
     return this.bodies.splice( i, 1 )[ 0 ];
 
 };

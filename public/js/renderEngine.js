@@ -1,25 +1,23 @@
 function RenderEngine( canvas, world ) {
 
+    paper.install( window );
+
     this.canvas       =                                             canvas;
-    this.canvasDim    = new Rectangle( 0, 0, canvas.width, canvas.height );
-    this.traversible  = new Rectangle(                    this.canvasDim );
+    this.canvasDim    =      vec2.create( [canvas.width, canvas.height ] );
+    this.borderPad    =                                                 10;
     this.world        =                                              world;
     this.project      = new Project(                                     );
     this.view         = new View(                                 canvas );
 
     this.project.activate();
 
-    this.traversible.size  = this.traversible.size.subtract( 20 );
-    this.traversible.point = this.traversible.point.add(     10 );
-
-    world.renderer    =                        this;
+    world.renderer    =                      this;
 
     var body;
     for ( var i = 0; i < world.bodies.length; i++ ) {
-        body          =      world.bodies[ i ];
-        body.position =  this.canvasDim.center;
-
-        body.draw( new Path( this.__symSeg ) );
+        body          =                  world.bodies[ i ];
+        vec2.scale( this.canvasDim, 1 / 2, body.position );
+        body.path     = new Path(          this.__symSeg );
 
     }
 
@@ -32,9 +30,20 @@ function RenderEngine( canvas, world ) {
 RenderEngine.prototype.draw = function( e ) {
 
     var bodies = this.world.bodies;
-    for ( var i = 0 ; i < bodies.length; i++ ) { bodies[ i ].draw(); }
+    var               body, _angle;
+    for ( var i = 0 ; i < bodies.length; i++ ) {
 
-    this.world.step();
+        body                 =                bodies[ i ];
+
+        _angle               = body.angle * 180 / Math.PI;
+        body.path.rotate(        _angle - body.oldAngle );
+        body.path.fillColor  =                 body.color;
+        body.path.position.x =           body.position[0];
+        body.path.position.y =           body.position[1];
+        body.oldAngle        =                     _angle;
+
+        body.step();
+    }
 
 };
 

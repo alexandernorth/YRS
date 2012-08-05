@@ -9,13 +9,12 @@
 
     <script type="text/javascript" src="lib/paper.js"></script>
     <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/glmatrix.js"></script>
     <script type="text/javascript" src="js/renderEngine.js"></script>
     <script type="text/javascript" src="js/world.js"></script>
     <script type="text/javascript" src="js/entity.js"></script>
 
     <script type="text/javascript" >
-
-        paper.install( window );
 
         var resizeCanvas = function() {
             var c       = $( "#canvas" );
@@ -38,6 +37,7 @@
 
         $(document).ready( resizeCanvas );
         $(window).resize(  resizeCanvas );
+
         var engine;
         $(document).ready( function(){
 
@@ -45,36 +45,63 @@
 
             var step   = function () {
 
-                var velocity          =                     new Point();
-                var separation        =                     new Point();
-                var alignment         =                     new Point();
-                var cohesion          =                     new Point();
-                var traversible       = this.world.renderer.traversible;
-                var neighbours        =                               0;
-                var neighboursTooNear =                               0;
-                var bodies            =               this.world.bodies;
-                var                                        mag, body, d;
+                var velocity          =                 vec2.create();
+                var separation        =                 vec2.create();
+                var alignment         =                 vec2.create();
+                var cohesion          =                 vec2.create();
+                var cDim              = this.world.renderer.canvasDim;
+                var padding           = this.world.renderer.borderPad;
+                var neighbours        =                             0;
+                var neighboursTooNear =                             0;
+                var bodies            =             this.world.bodies;
+                var                                      mag, body, d;
 
                 for ( var i = 0; i < bodies.length ; i++ ) {
 
-                    body =                                      bodies[ i ];
-                    d    = this.position.getDistance( body.position, true );
+                    body =                               bodies[ i ];
+                    d    = vec2.dist( this.position, body.position );
 
                     // Is a Neighbour
                     if ( d <= this.__threshold && this != body ) {
                         neighbours++;
 
-                        cohesion  = cohesion.add(  body.position );
-                        alignment = alignment.add( body.velocity );
+                        vec2.add(  cohesion, body.position,  cohesion );
+                        vec2.add( alignment, body.velocity, alignment );
 
                         if ( d <= this.__personal ) {
 
                             neighboursTooNear++;
 
                             if ( d < this.__effectiveZero ) {
-                                separation = separation.add( Point.random().subtract( 0.5 ).multiply( 4 * this.__maxV ) );
+
+                                vec2.add(
+
+                                    [ ( Math.random() - 0.5 ) * 4 * this.__maxV, 
+                                      ( Math.random() - 0.5 ) * 4 * this.__maxV ],
+
+                                    separation, 
+                                    separation 
+                                );
+
                             } else {
-                                separation = separation.add(   this.position.subtract( body.position ).normalize( 1 / Math.sqrt( d ) ) );
+
+                                vec2.add(
+
+                                    vec2.scale(
+
+                                        vec2.direction( 
+                                            this.position,  // To
+                                            body.position,  // From
+                                            []              // Container
+                                        ),
+
+                                        1 / d 
+                                    ),
+
+                                    separation, 
+                                    separation 
+                                );
+
                             }
 
 
@@ -87,64 +114,67 @@
                 if ( neighbours > 0 ) {
 
                     // Cohesion
-                    cohesion = cohesion.divide(                                 neighbours );
-                    cohesion = cohesion.subtract(                            this.position ); 
-                    mag      =                                               cohesion.length;
 
-                    cohesion = cohesion.multiply( Math.min( mag, 100 ) * this.__maxV / 100 );
-                    cohesion = cohesion.subtract(                            this.velocity );
+                    vec2.scale(    cohesion, 1 / neighbours, cohesion );
+                    vec2.subtract( cohesion,  this.position, cohesion );
+                    mag = vec2.length(                       cohesion );
+                    mag =      Math.min( mag, 100 ) * this.__maxV / 100;
+
+                    vec2.scale(    cohesion,            mag, cohesion );
+                    vec2.subtract( cohesion,  this.velocity, cohesion );
 
                     //Alignment
-                    alignment   = alignment.divide(                                neighbours );
-                    alignment   = Point.min(    alignment, alignment.normalize( this.__maxF ) );
 
-                    if ( cohesion.length  > this.__maxF ) cohesion  = cohesion.normalize(  this.__maxF );
-                    if ( alignment.length > this.__maxF ) alignment = alignment.normalize( this.__maxF );
+                    vec2.scale(  alignment, 1 / neighbours, alignment );
 
-                    cohesion    = cohesion.multiply(  this.__cohF );
-                    alignment   = alignment.multiply( this.__aliF );
+                    if ( vec2.length(  cohesion ) > this.__maxF ) vec2.scale( vec2.normalize(  cohesion ), this.__maxF,  cohesion );
+                    if ( vec2.length( alignment ) > this.__maxF ) vec2.scale( vec2.normalize( alignment ), this.__maxF, alignment );
+
+                    vec2.scale(  cohesion, this.__cohF,  cohesion );
+                    vec2.scale( alignment, this.__aliF, alignment );
 
                 }
 
                 if ( neighboursTooNear > 0 ) {
-                    separation  = separation.divide( neighboursTooNear ).multiply(         this.__sepF );
-                }
-
-
-
-                if ( !traversible.contains( this.position ) ) {
-
-                    var rebound = new Point(                                 );
-                    rebound     = traversible.center.subtract( this.position );
-                    velocity    = velocity.add(                      rebound );
+                    vec2.scale( separation, 1 / neighboursTooNear, separation );
+                    vec2.scale( separation,           this.__sepF, separation );
 
                 }
 
-                velocity        = velocity.add( separation );
-                velocity        = velocity.add(  alignment );
-                velocity        = velocity.add(   cohesion );
+                var outOfBounds = ( this.position[0] <               padding || 
+                                    this.position[0] > ( cDim[0] - padding ) ||
+                                    this.position[1] <               padding ||
+                                    this.position[1] > ( cDim[1] - padding ) );
 
-                if ( velocity.length > this.__maxV ) velocity = velocity.normalize( this.__maxV );
+                if ( outOfBounds ) {
+                    var rebound = vec2.create();
 
-                // Debug shapes
-/*                this.vArr ? this.vArr.remove() : undefined ;
-                this.vArr       = new Path( this.path.position, this.path.position.add( velocity.multiply( 10 ) ) );
-                this.vArr.strokeColor = 'black';
+                    vec2.scale(       cDim,          1 / 2,  rebound );
+                    vec2.subtract(  rebound, this.position,  rebound );
+                    vec2.add(      velocity,       rebound, velocity );
 
-                this.threshC ? this.threshC.remove() : undefined;
-                this.threshC = new Path.Circle( this.path.position, this.__threshold );
-                this.threshC.strokeColor = 'blue';
-                this.threshC.fillColor   = '#00A6EE';
-                this.threshC.opacity     = 0.01;
+                }
 
-                this.personalC ? this.personalC.remove() : undefined;
-                this.personalC  = new Path.Circle( this.path.position, this.__personal );
+                vec2.add( velocity, separation, velocity );
+                vec2.add( velocity,  alignment, velocity );
+                vec2.add( velocity,   cohesion, velocity );
 
-                this.personalC.strokeColor = 'black';
-                this.personalC.fillColor   = 'red';
-                this.personalC.opacity     =  0.2;*/
+                if ( vec2.length( velocity ) > this.__maxV ) vec2.scale( vec2.normalize( velocity ), this.__maxV, velocity );
 
-                this.targetV    = velocity;
+                vec2.add( 
+
+                    vec2.scale( this.velocity, 0.995, [] ),
+                    vec2.scale(      velocity, 0.005, [] ),
+                    this.velocity
+
+                );
+
+                vec2.add(       this.position, this.velocity, this.position );
+
+                var angle  = Math.atan( this.velocity[1] / this.velocity[0] );
+                if (this.velocity[0] < 0 )                   angle += Math.PI;
+
+                this.angle =                                            angle;
 
             };
 
@@ -169,7 +199,6 @@
 
     <div id="wrapper">
         <div id="name">Flock</div>
-
         <div id="canvas_wrapper">
             <canvas id="canvas" ></canvas>
         </div>
