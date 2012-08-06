@@ -1,11 +1,5 @@
 @charset "UTF-8";
-body {
-	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
-	background: #4E5869;
-	margin: 0;
-	padding: 0;
-	color: #000;
-}
+
 
 /* ~~ Element/tag selectors ~~ */
 ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
@@ -36,6 +30,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 
 /* ~~ this container surrounds all other divs giving them their percentage-based width ~~ */
 .container {
+	background-color: #74d6fc
 	width: 80%;
 	max-width: 1260px;/* a max-width may be desirable to keep this layout from getting too wide on a large monitor. This keeps line length more readable. IE6 does not respect this declaration. */
 	min-width: 780px;/* a min-width may be desirable to keep this layout from getting too narrow. This keeps line length more readable in the side columns. IE6 does not respect this declaration. */
