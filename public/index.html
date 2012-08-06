@@ -7,11 +7,11 @@
     <title>Flock</title>
     <link rel="stylesheet" href="res/styles/stylesheet.css">
 
-    <!--<script type="text/javascript" src="lib/paper.js"></script>-->
+    <script type="text/javascript" src="lib/paper.js"></script>
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/glmatrix.js"></script>
     <script type="text/javascript" src="js/webglRenderEngine.js"></script>
-    <!--<script type="text/javascript" src="js/canvasRenderEngine.js"></script>-->
+    <script type="text/javascript" src="js/canvasRenderEngine.js"></script>
     <script type="text/javascript" src="js/world.js"></script>
     <script type="text/javascript" src="js/entity.js"></script>
 
@@ -181,7 +181,7 @@
             };
 
             var ent;
-            for ( i = 0; i < 150; i++ ) {
+            for ( i = 0; i < 300; i++ ) {
                 ent = new Entity();
 
                 ent.addStepFunction( step );
@@ -193,12 +193,12 @@
 
             try {
 
-                engine = new WebGLRenderEngine(  c, world );
-
+                //engine = new WebGLRenderEngine(  c, world );
+                throw {};
             }
             catch( e ) {
                 console.log( "reverting", e );
-                //engine = new CanvasRenderEngine( c, world );
+                engine = new CanvasRenderEngine( c, world );
 
             }
 
@@ -225,7 +225,7 @@
         void main(void) {
 
             gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
-            
+
         }
 
 
