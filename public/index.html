@@ -7,11 +7,12 @@
     <title>Flock</title>
     <link rel="stylesheet" href="res/styles/stylesheet.css">
 
-    <script type="text/javascript" src="lib/paper.js"></script>
+    <!--<script type="text/javascript" src="lib/paper.js"></script>-->
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/glmatrix.js"></script>
+    <script type="text/javascript" src="lib/displayLink.js"></script>
     <script type="text/javascript" src="js/webglRenderEngine.js"></script>
-    <script type="text/javascript" src="js/canvasRenderEngine.js"></script>
+    <!--<script type="text/javascript" src="js/canvasRenderEngine.js"></script>-->
     <script type="text/javascript" src="js/world.js"></script>
     <script type="text/javascript" src="js/entity.js"></script>
 
@@ -181,7 +182,7 @@
             };
 
             var ent;
-            for ( i = 0; i < 300; i++ ) {
+            for ( i = 0; i < 1000; i++ ) {
                 ent = new Entity();
 
                 ent.addStepFunction( step );
@@ -193,8 +194,7 @@
 
             try {
 
-                //engine = new WebGLRenderEngine(  c, world );
-                throw {};
+                engine = new WebGLRenderEngine(  c, world );
             }
             catch( e ) {
                 console.log( "reverting", e );
@@ -211,9 +211,13 @@
         attribute vec3 aVertex;
         uniform   mat4 uMatrix;
 
+        uniform   vec4  uColor;
+        varying   vec4  vColor;
+
         void main(void) {
 
             gl_Position = uMatrix * vec4( aVertex, 1.0);
+            vColor      =                        uColor;
 
         }
 
@@ -222,9 +226,11 @@
     <script type="x-shader/x-fragment" id="fragShader" >
         precision mediump float;
 
+        varying vec4 vColor;
+
         void main(void) {
 
-            gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
+            gl_FragColor = vColor;
 
         }
 

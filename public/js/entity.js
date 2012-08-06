@@ -1,10 +1,10 @@
 function Entity() {
     
-    this.position = vec2.create();
-    this.color    =     '#00A6EE';
-    this.angle    =             0;
-    this.oldAngle =           -90;
-    this.velocity = vec2.create();
+    this.position =                         vec2.create();
+    this.color    = vec4.create( [0.0, 0.65, 0.93, 1.0] );
+    this.angle    =                                     0;
+    this.oldAngle =                                   -90;
+    this.velocity =                         vec2.create();
 
     this.step     = function() { return; };
 

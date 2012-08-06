@@ -2,14 +2,19 @@ function WebGLRenderEngine( canvas, world ) {
 
     var gl              = canvas.getContext( "experimental-webgl" );
 
-    this.gl             =                                        gl;
-    this.viewportWidth  =                              canvas.width;
-    this.viewportHeight =                             canvas.height;
+    this.gl             =                                             gl;
+    this.canvasDim      = vec2.create( [ canvas.width, canvas.height ] );
+    this.borderPad      =                                             10;
+    this.world          =                                          world;
+    this.viewportWidth  =                                   canvas.width;
+    this.viewportHeight =                                  canvas.height;
 
-    if( !this.gl )                     throw new NoWebGLException();
+    if( !this.gl )                          throw new NoWebGLException();
 
-    this.projectionMat  =                             mat4.create();
-    this.vertexBuff     =                         gl.createBuffer();
+    world.renderer      =                                           this;
+
+    this.projectionMat  =                                  mat4.create();
+    this.vertexBuff     =                              gl.createBuffer();
 
     gl.bindBuffer(               gl.ARRAY_BUFFER, this.vertexBuff );
     gl.bufferData(   gl.ARRAY_BUFFER, this.__vert, gl.STATIC_DRAW );
@@ -38,13 +43,25 @@ function WebGLRenderEngine( canvas, world ) {
 
     this.vertexAttrib   = gl.getAttribLocation(  shaderProgram, "aVertex" );
     this.matrixUniform  = gl.getUniformLocation( shaderProgram, "uMatrix" );
+    this.colorUniform   = gl.getUniformLocation( shaderProgram,  "uColor" );
 
     gl.enableVertexAttribArray(                         this.vertexAttrib );
 
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
-    gl.enable(          gl.DEPTH_TEST );
+    //gl.enable(          gl.DEPTH_TEST );
 
-    this.draw();
+    var bodies = this.world.bodies;
+    var body;
+
+    for( var i = 0; i < bodies.length; i++ ) {
+        body   = bodies[ i ];
+
+        vec2.set( [ canvas.width / 2, canvas.height / 2 ], body.position );
+
+    }
+
+    var _this = this;
+    requestAnimationFrame( function( t ) { _this.draw.call( _this, t ); } );
 }
 
 WebGLRenderEngine.prototype.fetchShader = function( id ) {
@@ -82,7 +99,7 @@ WebGLRenderEngine.prototype.fetchShader = function( id ) {
     return shader;
 }
 
-WebGLRenderEngine.prototype.draw   = function() {
+WebGLRenderEngine.prototype.draw   = function( time ) {
 
     var gl           =                                           this.gl;
     var modelViewMat =                                     mat4.create();
@@ -95,23 +112,34 @@ WebGLRenderEngine.prototype.draw   = function() {
     gl.vertexAttribPointer(        this.vertexAttrib, this.__vertWidth, 
                                                  gl.FLOAT, false, 0, 0 );
 
-    mat4.identity(                                        modelViewMat );
-    mat4.translate(                   modelViewMat, [ 100.0, 100.0, -1.0 ] );
+    var bodies = this.world.bodies;
+    var body;
 
-    mat4.multiply(      this.projectionMat, modelViewMat, modelViewMat );
+    for ( var i = 0; i < bodies.length; i++ ) {
+        body = bodies[ i ];
+        
+        body.step();
 
-    gl.uniformMatrix4fv(       this.matrixUniform, false, modelViewMat );
+        mat4.identity(                                                modelViewMat );
+        mat4.translate( modelViewMat, [ body.position[0], body.position[1], -1.0 ] );
+        mat4.rotateZ(                                     modelViewMat, body.angle );
+        mat4.multiply(              this.projectionMat, modelViewMat, modelViewMat );
+        gl.uniformMatrix4fv(               this.matrixUniform, false, modelViewMat );
+        gl.uniform4fv(                               this.colorUniform, body.color );
+        gl.drawArrays(                           gl.TRIANGLES, 0, this.__vertCount );
 
+    }
 
-    gl.drawArrays(                   gl.TRIANGLES, 0, this.__vertCount );
+    var _this = this;
+    requestAnimationFrame( function( t ) { _this.draw.call( _this, t ); } );
 };
 
 
 WebGLRenderEngine.prototype.__vert = new Float32Array( [
 
-     0.0,  10.0, 0.0,
-     5.0, -10.0, 0.0,
-    -5.0, -10.0, 0.0
+     10.0,  0.0, 0.0,
+    -10.0,  5.0, 0.0,
+    -10.0, -5.0, 0.0
 
 ] );
 
