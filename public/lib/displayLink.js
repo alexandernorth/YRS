@@ -1,5 +1,5 @@
 (function() {
-    var requestAnimationFrame =       window.requestAnimationFrame 
+    var requestAnimationFrame =     window.requestAnimationFrame 
                            ||    window.mozRequestAnimationFrame 
                            || window.webkitRequestAnimationFrame 
                            ||     window.msRequestAnimationFrame
