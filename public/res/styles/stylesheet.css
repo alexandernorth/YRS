@@ -28,12 +28,6 @@ body {
     margin:15px 0px 5px 15px;
 }
 
-#name:hover {
-
-    font-size:40pt;
-
-}
-
 #canvas_wrapper {
 
     height: 800px;
