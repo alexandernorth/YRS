@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-
-    <title>Flock</title>
-    <link rel="stylesheet" href="res/styles/stylesheet.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<link href="default.css" rel="stylesheet" type="text/css" /><!--[if lte IE 7]>
+<style>
+.content { margin-right: -1px; } /* this 1px negative margin can be placed on any of the columns in this layout with the same corrective effect. */
+ul.nav a { zoom: 1; }  /* the zoom property gives IE the hasLayout trigger it needs to correct extra whiltespace between the links */
+</style>
+<![endif]-->
+<link rel="stylesheet" href="res/styles/stylesheet.css">
 
     <script type="text/javascript" src="lib/paper.js"></script>
     <script type="text/javascript" src="lib/jquery.js"></script>
@@ -230,18 +234,31 @@
 
 
     </script>
-
 </head>
 
 <body>
 
-    <div id="wrapper">
-        <div id="name">Tweet @ You</div>
-        <div id="canvas_wrapper">
+<div class="container">
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="#">Link one</a></li>
+      <li><a href="#">Link two</a></li>
+      <li><a href="#">Link three</a></li>
+      <li><a href="#">Link four</a></li>
+    </ul>
+    <p> The above links demonstrate a basic navigational structure using an unordered list styled with CSS. Use this as a starting point and modify the properties to produce your own unique look. If you require flyout menus, create your own using a Spry menu, a menu widget from Adobe's Exchange or a variety of other javascript or CSS solutions.</p>
+    <p>If you would like the navigation along the top, simply move the ul.nav to the top of the page and recreate the styling.</p>
+    <!-- end .sidebar1 --></div>
+  <div class="content">
+    <h1>Instructions</h1>
+    <div id="canvas_wrapper">
             <canvas id="canvas" ></canvas>
         </div>
-    </div>
-    
+    <!-- end .content --></div>
+  <div class="sidebar2">
+    <h4>Backgrounds</h4>
+    <p>By nature, the background color on any div will only show for the length of the content. If you'd like a dividing line instead of a color, place a border on the side of the .content div (but only if it will always contain more content).</p>
+    <!-- end .sidebar2 --></div>
+  <!-- end .container --></div>
 </body>
-
 </html>
