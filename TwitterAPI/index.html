@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Twitter API sandbox</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+function getData() {
+/*
+	$.getJSON("http://api.twitter.com/1/users/show.json", {
+		screen_name : document.getElementById("input-username").value,
+		include_entities: true
+	},
+	function(data, textStatus, jqXHR) {
+		console.log("asdf");
+	});
+*/
+
+$.ajax({
+  url: "http://api.twitter.com/1/users/show.json",
+  dataType: 'jsonp',
+  data: {screen_name : document.getElementById("input-username").value,
+		include_entities: true},
+  success: function(data, textStatus, jqXHR) {
+  		document.getElementById("screen_name").innerHTML = data.screen_name;
+		document.getElementById("user_id").innerHTML = data.id;
+	},
+  error: function() {console.log(arguments);}
+});
+}
+</script>
+</head>
+<body>
+<div>
+<input type="text" id="input-username">
+<input type="submit" onclick="getData()">
+</div>
+<p>Screen name: <span id="screen_name"></span></p>
+</body>
+</html>
