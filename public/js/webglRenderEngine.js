@@ -131,7 +131,7 @@ WebGLRenderEngine.prototype.draw   = function( time ) {
     }
 
     var _this = this;
-    requestAnimationFrame( function( t ) { _this.draw.call( _this, t ); } );
+    requestAnimationFrame( function( t ) { _this.draw( t ); } );
 };
 
 

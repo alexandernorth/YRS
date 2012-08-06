@@ -22,8 +22,8 @@ function CanvasRenderEngine( canvas, world ) {
     }
 
     // Context aware call to RenderEngine.draw() onFrame, using closure.
-    var _this         =                                        this;
-    this.view.onFrame = function( e ) { _this.draw.call( _this, e ); };
+    var _this         =                               this;
+    this.view.onFrame = function( e ) { _this.draw( e ); };
 
 }
 
