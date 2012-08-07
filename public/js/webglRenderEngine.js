@@ -146,9 +146,10 @@ WebGLRenderEngine.prototype.__vert = new Float32Array( [
     -10.0,  5.0, 0.0,
     -10.0, -5.0, 0.0*/
     -3.0, -3.0, 0.0,
-    0.0, -5.0, 0.0,
+    -5.0, 0.0, 0.0,
     -2.0, -2.0, 0.0,
     -2.0, 2.0, 0.0,
+    -5.0, 0.0, 0.0,
     -3.0, 3.0, 0.0,
     -2.0, 2.0, 0.0,
     4.0, 4.0, 0.0,
@@ -184,7 +185,7 @@ WebGLRenderEngine.prototype.__vert = new Float32Array( [
 ] );
 
 WebGLRenderEngine.prototype.__vertWidth = 3;
-WebGLRenderEngine.prototype.__vertCount = 21;
+WebGLRenderEngine.prototype.__vertCount = 22;
 
 function NoWebGLException() {} // WebGL Not Supported Error
 function ShaderLoadFailed() {} // Could not Link Shaders Error
