@@ -5,16 +5,8 @@
 <meta charset="utf-8">
 <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
 <script type="text/javascript">
+
 function getData() {
-/*
-	$.getJSON("http://api.twitter.com/1/users/show.json", {
-		screen_name : document.getElementById("input-username").value,
-		include_entities: true
-	},
-	function(data, textStatus, jqXHR) {
-		console.log("asdf");
-	});
-*/
 
 $.ajax({
   url: "http://api.twitter.com/1/users/show.json",
@@ -23,11 +15,65 @@ $.ajax({
 		include_entities: true},
   success: function(data, textStatus, jqXHR) {
   		document.getElementById("screen_name").innerHTML = data.screen_name;
-		document.getElementById("user_id").innerHTML = data.id;
+		document.getElementById("follower_count").innerHTML = data.followers_count;
+		document.getElementById("following_count").innerHTML = data.friends_count;
+		
+		getFollowers(data.id_str, function(userID, IDlist) {
+			graph[userID] = {};
+			for (var i=0, l=IDlist.length; i<l; i++) {
+				var followerID = IDlist[i];
+				graph[userID][followerID] = 1;
+				graph[followerID] = {};
+				getFollowers(followerID, function(followerID, IDlist) {
+					for (var i=0, l=IDlist.length; i<l; i++) {
+						graph[followerID][IDlist[i]] = 1;
+					}
+				})
+			}
+			console.log(graph);
+		});
 	},
   error: function() {console.log(arguments);}
 });
+
+
+var graph = {};
+
+
+
 }
+
+
+function getFollowers(userID, callback) {
+
+$.ajax({
+  url: "http://api.twitter.com/1/followers/ids.json",
+  dataType: 'jsonp',
+  data: {user_id : userID,
+  stringify_ids : true},
+  success: function(data, textStatus, jqXHR) {
+  		callback(userID, data.ids);
+	},
+  error: function() {console.log(arguments);}
+});
+
+}
+
+function getFriends(userID, callback) {
+
+$.ajax({
+  url: "http://api.twitter.com/1/friends/ids.json",
+  dataType: 'jsonp',
+  data: {user_id : userID,
+  stringify_ids : true},
+  success: function(data, textStatus, jqXHR) {
+  		callback(userID, data.ids);
+	},
+  error: function() {console.log(arguments);}
+});
+
+}
+
 </script>
 </head>
 <body>
@@ -36,5 +82,8 @@ $.ajax({
 <input type="submit" onclick="getData()">
 </div>
 <p>Screen name: <span id="screen_name"></span></p>
+<p>Followers: <span id="follower_count"></span></p>
+<p>Following: <span id="following_count"></span></p>
+<p>Some follower: <span id="some_follower"></span></p>
 </body>
 </html>
