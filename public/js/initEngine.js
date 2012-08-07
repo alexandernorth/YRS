@@ -140,7 +140,7 @@ $(document).ready( function(){
     };
 
     var ent;
-    for ( i = 0; i < 300; i++ ) {
+    for ( i = 0; i < 1000; i++ ) {
         ent = new Entity();
 
         ent.addStepFunction( step );

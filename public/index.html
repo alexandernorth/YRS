@@ -20,16 +20,18 @@
     
     <script type="x-shader/x-vertex" id="vertexShader" >
 
-        attribute vec3 aVertex;
-        uniform   mat4 uMatrix;
+        attribute vec3   aVertex;
+        uniform   mat4  uRMatrix;
+        uniform   mat4  uTMatrix;
+        uniform   mat4  uPMatrix;
 
         uniform   vec4  uColor;
         varying   vec4  vColor;
 
         void main(void) {
 
-            gl_Position = uMatrix * vec4( aVertex, 1.0);
-            vColor      =                        uColor;
+            gl_Position = mat4(1.0) * uPMatrix * uTMatrix * uRMatrix * vec4( aVertex, 1.0 );
+            vColor      =                                                            uColor;
 
         }
 
