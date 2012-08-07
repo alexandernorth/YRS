@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Twitter API sandbox</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+
+function getFollowers(userID, callback) {
+
+	$.ajax({
+		url			:	"http://api.twitter.com/1/followers/ids.json",
+		dataType	:	"jsonp",
+		data		:	{	userid			:	userID,
+							stringify_ids	:	true	},
+		success		:	function (data, textStatus, jqXHR) {
+							callback(userID, data.ids);
+						},
+		error		:	function() {
+							console.log(arguments);
+						}
+	});
+
+}
+
+function getFriends(userID, callback) {
+
+	$.ajax({
+		url			:	"http://api.twitter.com/1/friends/ids.json",
+		dataType	:	"jsonp",
+		data		:	{	userid			:	userID,
+							stringify_ids	:	true	},
+		success		:	function (data, textStatus, jqXHR) {
+							callback(userID, data.ids);
+						},
+		error		:	function() {
+							console.log(arguments);
+						}
+	});
+
+}
+
+</script>
+</head>
+<body onload="getFollowers()">
+</body>
+</html>
