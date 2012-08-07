@@ -51,19 +51,19 @@ CanvasRenderEngine.prototype.draw = function( e ) {
 
 CanvasRenderEngine.prototype.__symSeg = new Array(
 
-    new paper.Point(  0, -7 ),
-    new paper.Point(  2, -3 ),
-	new paper.Point(  4, -4 ),
-    new paper.Point( 10, -2 ),
-	new paper.Point(  8, -1 ),
-	new paper.Point(  2, -2 ),
-	new paper.Point(  3, -3 ),
-	new paper.Point(  0, 5  ),
-	new paper.Point( -3, -3 ),
-	new paper.Point( -2, -2 ),
-	new paper.Point( -8, -1 ),
-	new paper.Point( -10, -2),
-	new paper.Point( -4, -4 ),
-	new paper.Point( -2, -3)
+    new paper.Point(   0, -7 ),
+    new paper.Point(   2, -3 ),
+	new paper.Point(   4, -4 ),
+    new paper.Point(  10, -2 ),
+	new paper.Point(   8,  1 ),
+	new paper.Point(   2,  2 ),
+	new paper.Point(   3,  3 ),
+	new paper.Point(   0,  5 ),
+	new paper.Point(  -3,  3 ),
+	new paper.Point(  -2,  2 ),
+	new paper.Point(  -8,  1 ),
+	new paper.Point( -10, -2 ),
+	new paper.Point(  -4, -4 ),
+	new paper.Point(  -2, -3 )
 
 );
