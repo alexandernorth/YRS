@@ -9,14 +9,14 @@ body * { margin:0; padding:0; }
 
 body {
 
-    background-color:#74d6fc;
+    background-color:#fafafa;/*#74d6fc;*/
 
 }
 
 #wrapper {
 
-    max-width: 1000px;
-    min-width: 330px;
+    width: 1150px;
+    overflow: hidden;
     margin: 0 auto;
 }
 
@@ -28,14 +28,36 @@ body {
     margin:15px 0px 5px 15px;
 }
 
-#canvas_wrapper {
+.rounded {
 
-    height: 800px;
+    padding:10px;
     margin: 15px;
     background-color:#fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+
+}
+
+.sidebar {
+    width:200px;
+}
+/*
+#stream {
+    float:left;
+}
+
+#users {
+    float:right;
+}*/
+
+.column {
+    float:left;
+}
+
+#canvas-wrapper {
+    width:600px;
+    height: 800px;
 }
 
 #canvas {
