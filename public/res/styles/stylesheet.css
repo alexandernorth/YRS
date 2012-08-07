@@ -65,4 +65,23 @@ body {
     margin: 15px;
 
 }
-
+#users a, li{
+    text-decoration: none;
+    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 20pt;
+    color: #00A6EE;
+    letter-spacing: -2px;
+    text-shadow: 0.03em 0.03em 60 #ddd;
+    list-style: none;
+    font-variant: small-caps;
+}
+#users a:hover{
+        color: #666;
+}
+ #stream{
+    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: #00A6EE;
+    letter-spacing: -2px;
+    text-shadow: 0.03em 0.03em 60 #ddd;
+ }
