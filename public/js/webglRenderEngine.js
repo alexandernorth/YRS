@@ -131,7 +131,7 @@ WebGLRenderEngine.prototype.draw   = function( time ) {
         gl.uniformMatrix4fv(          this.translationUniform, false, translationMat );
         gl.uniformMatrix4fv(       this.projectionUniform, false, this.projectionMat );
         gl.uniform4fv(                                 this.colorUniform, body.color );
-        gl.drawArrays(                             gl.TRIANGLES, 0, this.__vertCount );
+        gl.drawArrays(                        gl.TRIANGLE_STRIP, 0, this.__vertCount );
 
     }
 
@@ -142,14 +142,49 @@ WebGLRenderEngine.prototype.draw   = function( time ) {
 
 WebGLRenderEngine.prototype.__vert = new Float32Array( [
 
-     10.0,  0.0, 0.0,
+     /*10.0,  0.0, 0.0,
     -10.0,  5.0, 0.0,
-    -10.0, -5.0, 0.0
+    -10.0, -5.0, 0.0*/
+    -3.0, -3.0, 0.0,
+    0.0, -5.0, 0.0,
+    -2.0, -2.0, 0.0,
+    2.0, -2.0, 0.0,
+    3.0, -3.0, 0.0,
+    2.0, -2.0, 0.0,
+    4.0, 4.0, 0.0,
+    8.0, -1.0, 0.0,
+    10.0, 2.0, 0.0,
+    4.0, 4.0, 0.0,
+    2.0, -2.0, 0.0,
+    2.0, 3.0, 0.0,
+    2.0, -2.0, 0.0,
+    -2.0, -3.0, 0.0,
+    0.0, 7.0, 0.0,
+    2.0, 3.0, 0.0,
+    -2.0, 3.0, 0.0,
+    -2.0, -2.0, 0.0,
+    -4.0, 4.0, 0.0,
+    -8.0, -1.0, 0.0,
+    -10.0, 2.0, 0.0,
+    -4.0, 4.0, 0.0
+
+
+
+    // -10.0, 0.0, 0.0,
+    // -5.0, 50.0, 0.0,
+    // 0.0, 0.0, 0.0,
+    // 0.0, 0.0, 0.0,
+    // 5.0, 50.0, 0.0,
+    // 10.0, 0.0,0.0
+
+
+
+
 
 ] );
 
 WebGLRenderEngine.prototype.__vertWidth = 3;
-WebGLRenderEngine.prototype.__vertCount = 3;
+WebGLRenderEngine.prototype.__vertCount = 21;
 
 function NoWebGLException() {} // WebGL Not Supported Error
 function ShaderLoadFailed() {} // Could not Link Shaders Error
