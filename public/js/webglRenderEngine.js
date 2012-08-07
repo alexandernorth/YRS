@@ -41,9 +41,11 @@ function WebGLRenderEngine( canvas, world ) {
 
     gl.useProgram(                                          shaderProgram );
 
-    this.vertexAttrib   = gl.getAttribLocation(  shaderProgram, "aVertex" );
-    this.matrixUniform  = gl.getUniformLocation( shaderProgram, "uMatrix" );
-    this.colorUniform   = gl.getUniformLocation( shaderProgram,  "uColor" );
+    this.vertexAttrib       = gl.getAttribLocation(  shaderProgram,  "aVertex" );
+    this.translationUniform = gl.getUniformLocation( shaderProgram, "uTMatrix" );
+    this.rotationUniform    = gl.getUniformLocation( shaderProgram, "uRMatrix" );
+    this.projectionUniform  = gl.getUniformLocation( shaderProgram, "uPMatrix" );
+    this.colorUniform       = gl.getUniformLocation( shaderProgram,   "uColor" );
 
     gl.enableVertexAttribArray(                         this.vertexAttrib );
 
@@ -101,8 +103,9 @@ WebGLRenderEngine.prototype.fetchShader = function( id ) {
 
 WebGLRenderEngine.prototype.draw   = function( time ) {
 
-    var gl           =                                           this.gl;
-    var modelViewMat =                                     mat4.create();
+    var gl             =                                           this.gl;
+    var rotationMat    =                                     mat4.create();
+    var translationMat =                                     mat4.create();
 
     gl.viewport(         0, 0, this.viewportWidth, this.viewportHeight );
     gl.clear(                gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
@@ -120,13 +123,15 @@ WebGLRenderEngine.prototype.draw   = function( time ) {
         
         body.step();
 
-        mat4.identity(                                                modelViewMat );
-        mat4.translate( modelViewMat, [ body.position[0], body.position[1], -1.0 ] );
-        mat4.rotateZ(                                     modelViewMat, body.angle );
-        mat4.multiply(              this.projectionMat, modelViewMat, modelViewMat );
-        gl.uniformMatrix4fv(               this.matrixUniform, false, modelViewMat );
-        gl.uniform4fv(                               this.colorUniform, body.color );
-        gl.drawArrays(                           gl.TRIANGLES, 0, this.__vertCount );
+        mat4.identity(                                                   rotationMat );
+        mat4.identity(                                                translationMat );
+        mat4.translate( translationMat, [ body.position[0], body.position[1], -1.0 ] );
+        mat4.rotateZ(                                        rotationMat, body.angle );
+        gl.uniformMatrix4fv(                this.rotationUniform, false, rotationMat );
+        gl.uniformMatrix4fv(          this.translationUniform, false, translationMat );
+        gl.uniformMatrix4fv(       this.projectionUniform, false, this.projectionMat );
+        gl.uniform4fv(                                 this.colorUniform, body.color );
+        gl.drawArrays(                             gl.TRIANGLES, 0, this.__vertCount );
 
     }
 
