@@ -87,7 +87,7 @@ footer{
     font-size: 25px;
     color: #00A6EE;
     letter-spacing: -2px;
-   
+    text-align: center;
  }
 footer li{
     font-size: 25px;
@@ -154,4 +154,16 @@ text-decoration: none;
         padding-left: 5px;
         padding-top: 10px;
         text-align: center;
+}
+
+#searchbox {
+	border			:	1px solid #aaa;
+	border-radius	:	5px;
+	height			:	17px;
+}
+
+#searchbox:focus {
+	border-color	:	rgba(82, 168, 236, 0.8);
+	box-shadow		:	0 1px 1px rgba(0, 0, 0, 0.075) inset,
+						0 0 8px rgba(82, 168, 236, 0.6);
 }
