@@ -1,6 +1,7 @@
 function TwitterModel() {
     
-    this.graph = new Array();
+    this.allKnown = new Array();
+    this.graph    = new Array();
 
 }
 
