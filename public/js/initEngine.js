@@ -140,7 +140,7 @@ $(document).ready( function(){
     };
 
     var ent;
-    for ( i = 0; i < 100; i++ ) {
+    for ( i = 0; i < 50; i++ ) {
         ent = new Entity();
 
         ent.addStepFunction( step );
@@ -148,17 +148,9 @@ $(document).ready( function(){
 
     }
 
-    var c  = $( "#canvas" ).get( 0 );
+    var c  = $( "#canvas" ).get(  0 );
+    var model = new TwitterModel( c );
 
-    try {
-
-        engine = new WebGLRenderEngine(  c, world );
-
-    }
-    catch( e ) {
-        console.log( "reverting", e );
-        //engine = new CanvasRenderEngine( c, world );
-
-    }
+    model.buildGraphFor( "ashok_menon" );
 
 } );
