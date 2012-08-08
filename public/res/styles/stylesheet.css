@@ -75,26 +75,19 @@ header{
     font-size: 20pt;
     color: #00A6EE;
     letter-spacing: -2px;
-    text-shadow: 0.03em 0.03em 60 #ddd;
+    text-shadow: 1px 1px 2px #ddd;
     list-style: none;
     font-variant: small-caps;
 }
 #users a:hover{
         color: #666;
 }
- #stream{
-    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 25px;
-    color: #00A6EE;
-    letter-spacing: -2px;
-    text-shadow: 0.03em 0.03em 60 #999;
- }
 footer{
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 25px;
     color: #00A6EE;
     letter-spacing: -2px;
-    text-shadow: 0.03em 0.03em 60 #999;
+   
  }
 footer li{
     font-size: 25px;
@@ -107,14 +100,25 @@ footer li:after {
     padding: 0 20px;
 }
 footer a:hover{
-    color: #666;
+    color: #555;
 } 
 footer a{
 color:#00A6EE;
-text-shadow: 0px 1px 2px #ddd;
+text-shadow: 1px 1px 2px #ddd;
 text-decoration: none;
 }
-
+#stream{
+    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: #00A6EE;
+    letter-spacing: -2px;
+}
+#stream h2{
+    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+    color: #00A6EE;
+    letter-spacing: -2px;
+    text-shadow: 1.5px 1px 2px #ddd;
+}
 .roundedat {
 
     padding:10px;
