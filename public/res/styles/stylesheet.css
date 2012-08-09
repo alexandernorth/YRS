@@ -26,7 +26,6 @@ header{
     font-family:Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size:30pt;
     color:#00A6EE;
-    text-shadow: 0.03em 0.03em 0 #999;
     margin:15px 0px 5px 15px;
 }
 
@@ -122,7 +121,7 @@ text-decoration: none;
     font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
     color: #00A6EE;
     letter-spacing: -2px;
-    text-shadow: 1.5px 1px 2px #ddd;
+    text-shadow: 0.03em 0.03em 0 #999;
 }
 .roundedat {
 
