@@ -43,6 +43,14 @@ padding:0;
 	padding: 4px;
 }
 
+#displayoption {
+	text-decoration: none;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 16pt;
+	color: #00A6EE;
+	letter-spacing: -2px;
+}
+
 #wrapper {
 	width: 1150px;
 	overflow: hidden;
