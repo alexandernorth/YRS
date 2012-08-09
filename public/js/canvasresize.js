@@ -1,4 +1,3 @@
-
 var resizeCanvas = function() {
     var c       = $( "#canvas" );
     var cDOM    = c.get(     0 );
