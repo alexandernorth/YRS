@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArRj-DM-wluMWmCqkIxAMx3C5Jo8B5iWI&sensor=false&region=GB"
+  type="text/javascript"></script>
+  
+  
+    <script type="text/javascript">
+      function detectBrowser() {
+  var useragent = navigator.userAgent;
+  var mapdiv = document.getElementById("map_canvas");
+
+  if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+    mapdiv.style.width = '100%';
+    mapdiv.style.height = '100%';
+  } else {
+    mapdiv.style.width = '600px';
+    mapdiv.style.height = '800px';
+  }
+}
+	  
+	  function initialize() {
+        var myLatlng = new google.maps.LatLng(51.507340, -0.127673);
+        var mapOptions = {
+          zoom: 13,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+		
+		var contentString = '<div id="content">'+
+    '<div id="siteNotice">'+
+    '</div>'+
+    '<h2 id="firstHeading" class="firstHeading">Barclays Free Cash Machine</h2>'+
+    '<div id="bodyContent">'+
+    '<p>Address Line 1 <br />2 <br />3 <br/>4 <br /></p>'+
+    '</div>'+
+    '</div>';
+
+var infowindow = new google.maps.InfoWindow({
+    content: contentString
+});
+
+        
+		var myLatLng = new google.maps.LatLng(51.507340, -0.127673);
+		var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+			
+            title: 'London, UK'
+        });
+		google.maps.event.addListener(marker, 'click', function() {
+  infowindow.open(map,marker);
+});
+      }
+    </script>
+  </head>
+  
+  
+  <body onload="initialize()">
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+  </body>
+</html>
