@@ -1,7 +1,7 @@
 @font-face {
-    font-family: Capriola;
-    src: url(../fnt/Capriola-Regular.ttf);
-    font-weight: 400;
+	font-family: Capriola;
+	src: url(../fnt/Capriola-Regular.ttf);
+	font-weight: 400;
 }
 
 body * {
@@ -10,62 +10,62 @@ body * {
 }
 
 body {
-    background-color:#ededed;
+	background-color:#ededed;
 }
 
 header {
-    padding-left: 50px;
+	padding-left: 50px;
 }
 
 #wrapper {
-    width: 1150px;
-    overflow: hidden;
-    margin: 0 auto;
+	width: 1150px;
+	overflow: hidden;
+	margin: 0 auto;
 }
 
 #name {
-    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 30pt;
-    color: #00A6EE;
-    margin: 15px 0px 5px 15px;
+	font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 30pt;
+	color: #00A6EE;
+	margin: 15px 0px 5px 15px;
 }
 
 .rounded {
-    padding: 10px;
-    margin: 15px;
-    background-color: #fff;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    height: 800px;
+	padding: 10px;
+	margin: 15px;
+	background-color: #fff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	height: 800px;
 }
 
 .sidebar {
-    width: 200px;
+	width: 200px;
 }
 
 .column {
-    float: left;
+	float: left;
 }
 
 #canvas-wrapper {
-    width: 600px;
-    height: 800px;
+	width: 600px;
+	height: 800px;
 }
 
 #canvas {
-    margin: 15px;
+	margin: 15px;
 }
 
 #users a, li {
-    text-decoration: none;
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 20pt;
-    font-weight: bold;
-    color: #00A6EE;
-    letter-spacing: -2px;
-    list-style: none;
-    font-variant: small-caps;
+	text-decoration: none;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 20pt;
+	font-weight: bold;
+	color: #00A6EE;
+	letter-spacing: -2px;
+	list-style: none;
+	font-variant: small-caps;
 }
 
 #users a:hover {
@@ -73,23 +73,23 @@ header {
 }
 
 footer {
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    color: #555;
-    letter-spacing: -2px;
-    text-align: center;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	color: #555;
+	letter-spacing: -2px;
+	text-align: center;
 }
 
 footer li {
-    font-size: 20px;
-    color: #555;
-    font-style: italic;
-    display: inline;
+	font-size: 20px;
+	color: #555;
+	font-style: italic;
+	display: inline;
 }
 
 footer li:after {
-    content: '|';
-    padding: 0 20px;
+	content: '|';
+	padding: 0 20px;
 }
 
 .last:after {
@@ -108,48 +108,48 @@ footer a {
 }
 
 #stream {
-    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 25px;
-    color: #00A6EE;
-    letter-spacing: -2px;
+	font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 25px;
+	color: #00A6EE;
+	letter-spacing: -2px;
 }
 
 #stream h2 {
-    font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
-    color: #00A6EE;
-    letter-spacing: -2px;
-    text-shadow: 0.03em 0.03em 0 #ddd;
+	font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color: #00A6EE;
+	letter-spacing: -2px;
+	text-shadow: 0.03em 0.03em 0 #ddd;
 }
 
 .roundedat {
-    padding: 10px;
-    padding-bottom: 10px;
-    margin-left: 10px;
-    background-color: #fff;
-    -webkit-border-bottom-right-radius: 10px;
-    -webkit-border-bottom-left-radius: 10px;
-    -moz-border-bottom-right-radius: 10px;
-    -moz-border-bottom-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    height: 750px;
+	padding: 10px;
+	padding-bottom: 10px;
+	margin-left: 10px;
+	background-color: #fff;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-bottom-right-radius: 10px;
+	-moz-border-bottom-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	height: 750px;
 }
 
 .roundedsearch {
 	height: 49px;
-    margin-top: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: 10px;
-    background-color: #fff;
+	margin-top: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+	background-color: #fff;
 	-webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px;
-    -moz-border-top-right-radius: 10px;
-    -moz-border-top-right-radius: 10px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    background-color: lightgray;
-    border-bottom: 1px solid gray;
+	-webkit-border-top-left-radius: 10px;
+	-moz-border-top-right-radius: 10px;
+	-moz-border-top-right-radius: 10px;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	background-color: lightgray;
+	border-bottom: 1px solid gray;
 }
 
 #box {
