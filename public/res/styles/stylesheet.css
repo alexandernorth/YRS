@@ -10,8 +10,10 @@ body * {
 }
 
 body {
-    background-image: url(../img/backround.jpg);
+    background-image: url(../img/background.jpg);
     background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
     background-size: 100%;
     /*#74d6fc;*/
 }
