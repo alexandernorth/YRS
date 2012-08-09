@@ -84,13 +84,14 @@ header{
 }
 footer{
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 25px;
-    color: #00A6EE;
+    font-size: 20px;
+    color: #555;
     letter-spacing: -2px;
     text-align: center;
  }
 footer li{
-    font-size: 25px;
+    font-size: 20px;
+    color: #555;
     font-style: italic;
     display: inline;
    
@@ -104,10 +105,10 @@ footer li:after {
 	padding: 0 0;
 }
 footer a:hover{
-    color: #555;
+    color: #00A6EE;
 } 
 footer a{
-color:#00A6EE;
+color: #555;
 text-shadow: 1px 1px 2px #ddd;
 text-decoration: none;
 }
