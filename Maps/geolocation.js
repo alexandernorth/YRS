@@ -1,4 +1,3 @@
-var map;
 var geocoder;
 
 function addAddressToMap(response) 
@@ -22,7 +21,7 @@ function addAddressToMap(response)
 
 function initialize() 
 {
-	map = new GMap2(document.getElementById("map_image"));
+	map = new GMap2(document.getElementById("map_canvas"));
 	map.setCenter(new GLatLng(34, 0), 1);
 	map.setUIToDefault();
 	geocoder = new GClientGeocoder();
