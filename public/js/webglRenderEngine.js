@@ -169,6 +169,11 @@ WebGLRenderEngine.prototype.__vert = new Float32Array( [
      2.0, -10.0, 0.0,
      4.0,  -4.0, 0.0
 
+     // -10.0, 10.0, 0.0, For Arrow Heads (vertex count = 4)
+    // -4.0, 0.0, 0.0,
+    // 10.0, 0.0, 0.0,
+    // -10.0, -10.0, 0.0
+
 ] );
 
 WebGLRenderEngine.prototype.__vertWidth = 3;
