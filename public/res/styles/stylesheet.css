@@ -80,13 +80,13 @@ header {
 footer{
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 20px;
-    color: black;
+    color: #B3DCEE;
     letter-spacing: -2px;
     text-align: center;
  }
 footer li{
     font-size: 20px;
-    color: black;
+    color: #B3DCEE;
     font-style: italic;
     display: inline;
    
@@ -103,7 +103,7 @@ footer a:hover{
     color: #009ace;
 } 
 footer a{
-color: black;
+color: #B3DCEE;
 text-decoration: none;
 }
 
