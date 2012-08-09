@@ -8,10 +8,10 @@ function TwitterModel( canvas ) {
 
 TwitterModel.prototype.buildGraphFor = function( user ) {
 
-    this.currentLayer  =                                                     new Array();
-    this.layerScores   =                                                     new Array();
-    this.stackDepth    =                                                               0;
-    this.sampleWidth   =                                                 this.__topLevel;
+    this.currentLayer  =     new Array();
+    this.layerScores   =     new Array();
+    this.stackDepth    =               0;
+    this.sampleWidth   = this.__topLevel;
 
     this.resolveIdFor( user, function( data ) {
 
@@ -84,6 +84,7 @@ TwitterModel.prototype.processFollowers = function( userId, callback, after ) {
         context  :                                                       this,
         success  :                                                   callback,
         complete :                                                      after,
+        timeout  :                                                       5000,
         error    : function( xhr, msg, error ) { console.log( msg, error ); }
 
     } );
@@ -100,6 +101,7 @@ TwitterModel.prototype.processFriends   = function( userId, callback, after ) {
         context  :                                                       this,
         success  :                                                   callback,
         complete :                                                      after,
+        timeout  :                                                       5000,
         error    : function( xhr, msg, error ) { console.log( msg, error ); }
         
     } );
