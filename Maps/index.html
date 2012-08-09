@@ -33,31 +33,12 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-		
-		var contentString = '<div id="content">'+
-    '<div id="siteNotice">'+
-    '</div>'+
-    '<h2 id="firstHeading" class="firstHeading">Barclays Free Cash Machine</h2>'+
-    '<div id="bodyContent">'+
-    '<p>Address Line 1 <br />2 <br />3 <br/>4 <br /></p>'+
-    '</div>'+
-    '</div>';
+	
 
-var infowindow = new google.maps.InfoWindow({
-    content: contentString
-});
-
+        var ctaLayer = new google.maps.KmlLayer('http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml');
+ctaLayer.setMap(map);
         
-		var myLatLng = new google.maps.LatLng(51.507340, -0.127673);
-		var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-			
-            title: 'London, UK'
-        });
-		google.maps.event.addListener(marker, 'click', function() {
-  infowindow.open(map,marker);
-});
+		
       }
     </script>
   </head>
