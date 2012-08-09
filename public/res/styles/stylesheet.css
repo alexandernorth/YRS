@@ -10,7 +10,10 @@ body * {
 }
 
 body {
-	background-color:#ededed;
+    background-image: url(../img/backround.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    /*#74d6fc;*/
 }
 
 header {
@@ -72,39 +75,34 @@ header {
 	color: #666;
 }
 
-footer {
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size: 20px;
-	color: #555;
-	letter-spacing: -2px;
-	text-align: center;
+footer{
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: black;
+    letter-spacing: -2px;
+    text-align: center;
+ }
+footer li{
+    font-size: 20px;
+    color: black;
+    font-style: italic;
+    display: inline;
+   
 }
-
-footer li {
-	font-size: 20px;
-	color: #555;
-	font-style: italic;
-	display: inline;
-}
-
 footer li:after {
-	content: '|';
-	padding: 0 20px;
+    content: '|';
+    padding: 0 20px;
 }
-
 .last:after {
 	content: '';
 	padding: 0 0;
 }
-
-footer a:hover {
-	color: #00A6EE;
-}
-
-footer a {
-	color: #555;
-	text-shadow: 1px 1px 2px #ddd;
-	text-decoration: none;
+footer a:hover{
+    color: #009ace;
+} 
+footer a{
+color: black;
+text-decoration: none;
 }
 
 #stream {
