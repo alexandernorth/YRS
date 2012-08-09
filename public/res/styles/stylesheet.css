@@ -99,6 +99,10 @@ footer li:after {
     content: '|';
     padding: 0 20px;
 }
+.last:after {
+	content: '';
+	padding: 0 0;
+}
 footer a:hover{
     color: #555;
 } 
