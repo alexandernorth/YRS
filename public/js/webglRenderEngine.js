@@ -1,6 +1,6 @@
 function WebGLRenderEngine( canvas, world ) {
 
-    var gl              = canvas.getContext( "experimental-webgl" );
+    var gl              = canvas.getContext(      "experimental-webgl" );
 
     this.gl             =                                             gl;
     this.canvasDim      = vec2.create( [ canvas.width, canvas.height ] );
@@ -15,9 +15,14 @@ function WebGLRenderEngine( canvas, world ) {
 
     this.projectionMat  =                                  mat4.create();
     this.vertexBuff     =                              gl.createBuffer();
+    this.tagBuff        =                              gl.createBuffer();
 
-    gl.bindBuffer(               gl.ARRAY_BUFFER, this.vertexBuff );
-    gl.bufferData(   gl.ARRAY_BUFFER, this.__vert, gl.STATIC_DRAW );
+
+    gl.bindBuffer(                   gl.ARRAY_BUFFER, this.tagBuff );
+    gl.bufferData( gl.ARRAY_BUFFER, this.__tagVert, gl.STATIC_DRAW );
+
+    gl.bindBuffer(                gl.ARRAY_BUFFER, this.vertexBuff );
+    gl.bufferData(    gl.ARRAY_BUFFER, this.__vert, gl.STATIC_DRAW );
 
     mat4.ortho(                                  0,  canvas.width, 
                                                  0, canvas.height, 
@@ -39,15 +44,16 @@ function WebGLRenderEngine( canvas, world ) {
 
     }
 
-    gl.useProgram(                                          shaderProgram );
+    gl.useProgram(                                               shaderProgram );
 
     this.vertexAttrib       = gl.getAttribLocation(  shaderProgram,  "aVertex" );
+    this.scaleUniform       = gl.getUniformLocation( shaderProgram, "uSMatrix" );
     this.translationUniform = gl.getUniformLocation( shaderProgram, "uTMatrix" );
     this.rotationUniform    = gl.getUniformLocation( shaderProgram, "uRMatrix" );
     this.projectionUniform  = gl.getUniformLocation( shaderProgram, "uPMatrix" );
     this.colorUniform       = gl.getUniformLocation( shaderProgram,   "uColor" );
 
-    gl.enableVertexAttribArray(                         this.vertexAttrib );
+    gl.enableVertexAttribArray(                              this.vertexAttrib );
 
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
     //gl.enable(          gl.DEPTH_TEST );
@@ -103,15 +109,41 @@ WebGLRenderEngine.prototype.fetchShader = function( id ) {
 
 WebGLRenderEngine.prototype.draw   = function( time ) {
 
-    var gl             =                                           this.gl;
-    var rotationMat    =                                     mat4.create();
-    var translationMat =                                     mat4.create();
+    var gl             =                                         this.gl;
+    var scaleMat       =                                   mat4.create();
+    var rotationMat    =                                   mat4.create();
+    var translationMat =                                   mat4.create();
 
     gl.viewport(         0, 0, this.viewportWidth, this.viewportHeight );
     gl.clear(                gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
-    gl.bindBuffer(                    gl.ARRAY_BUFFER, this.vertexBuff );
+    gl.bindBuffer(                       gl.ARRAY_BUFFER, this.tagBuff );
+    gl.vertexAttribPointer(        this.vertexAttrib, this.__vertWidth, 
+                                                 gl.FLOAT, false, 0, 0 );
 
+
+    var tags = this.world.tags;
+    var tag;
+
+    for( var tagName in tags ) {
+        tag = tags[ tagName ];
+
+        mat4.identity(                                                      scaleMat );
+        mat4.identity(                                                   rotationMat );
+        mat4.identity(                                                translationMat );
+        mat4.scale(                          scaleMat, [ tag.scale, tag.scale, 1.0 ] );
+        mat4.translate(   translationMat, [ tag.position[0], tag.position[1], -1.0 ] );
+        mat4.rotateZ(                                         rotationMat, tag.angle );
+        gl.uniformMatrix4fv(                      this.scaleUniform, false, scaleMat );
+        gl.uniformMatrix4fv(                this.rotationUniform, false, rotationMat );
+        gl.uniformMatrix4fv(          this.translationUniform, false, translationMat );
+        gl.uniformMatrix4fv(       this.projectionUniform, false, this.projectionMat );
+        gl.uniform4fv(                                  this.colorUniform, tag.color );
+        gl.drawArrays(                     gl.TRIANGLE_STRIP, 0, this.__tagVertCount );
+
+    }
+
+    gl.bindBuffer(                    gl.ARRAY_BUFFER, this.vertexBuff );
     gl.vertexAttribPointer(        this.vertexAttrib, this.__vertWidth, 
                                                  gl.FLOAT, false, 0, 0 );
 
@@ -122,11 +154,13 @@ WebGLRenderEngine.prototype.draw   = function( time ) {
         body = bodies[ i ];
         
         body.step();
-
+        mat4.identity(                                                      scaleMat );
         mat4.identity(                                                   rotationMat );
         mat4.identity(                                                translationMat );
+        mat4.scale(                        scaleMat, [ body.scale, body.scale, 1.0 ] );
         mat4.translate( translationMat, [ body.position[0], body.position[1], -1.0 ] );
         mat4.rotateZ(                                        rotationMat, body.angle );
+        gl.uniformMatrix4fv(                      this.scaleUniform, false, scaleMat );
         gl.uniformMatrix4fv(                this.rotationUniform, false, rotationMat );
         gl.uniformMatrix4fv(          this.translationUniform, false, translationMat );
         gl.uniformMatrix4fv(       this.projectionUniform, false, this.projectionMat );
@@ -176,8 +210,19 @@ WebGLRenderEngine.prototype.__vert = new Float32Array( [
 
 ] );
 
-WebGLRenderEngine.prototype.__vertWidth = 3;
-WebGLRenderEngine.prototype.__vertCount = 22;
+WebGLRenderEngine.prototype.__tagVert   = new Float32Array( [
+
+    -1.0, -1.0, 0.0,
+    -1.0,  1.0, 0.0,
+     1.0, -1.0, 0.0,
+     1.0,  1.0, 0.0
+
+] );
+
+WebGLRenderEngine.prototype.__vertWidth    =  3;
+WebGLRenderEngine.prototype.__vertCount    = 22;
+
+WebGLRenderEngine.prototype.__tagVertCount =  4;
 
 function NoWebGLException() {} // WebGL Not Supported Error
 function ShaderLoadFailed() {} // Could not Link Shaders Error

@@ -18,6 +18,7 @@
     <script type="text/javascript" src="js/canvasResize.js"></script>
     <script type="text/javascript" src="js/twitterModel.js"></script>
     <script type="text/javascript" src="js/initEngine.js"></script>
+    <script type="text/javascript" src="js/buttonEvents.js"></script>
     
     <script type="x-shader/x-vertex" id="vertexShader" >
 
@@ -25,14 +26,16 @@
         uniform   mat4  uRMatrix;
         uniform   mat4  uTMatrix;
         uniform   mat4  uPMatrix;
+        uniform   mat4  uSMatrix;
 
         uniform   vec4  uColor;
         varying   vec4  vColor;
 
+
         void main(void) {
 
-            gl_Position = mat4(1.0) * uPMatrix * uTMatrix * uRMatrix * vec4( aVertex, 1.0 );
-            vColor      =                                                            uColor;
+            gl_Position = uPMatrix * uTMatrix * uRMatrix * uSMatrix * vec4( aVertex, 1.0 );
+            vColor      =                                                           uColor;
 
         }
 
@@ -63,9 +66,7 @@
         </header>
 
         <div id="stream" class="column rounded sidebar" >
-            <h2>Stream</h2><br>
-            <p>Streams n' stuff<br>
-            </p>
+            <h2>Tags</h2><br><ul class="sidebarlist"></ul>
         </div>
 
         <div id="canvas-wrapper" class="column rounded" >
@@ -74,55 +75,31 @@
 
         <div class="column sidebar">
             
-
             <div class="column roundedsearch sidebar">
 
                 <form id="box">
                    
-
-
-                                <input type="text" maxlength="20" id="searchbox" title="Enter a Twitter username"> 
-                                <a href="#"><img src="res/img/search/search.png" alt="search" /></a>
-
+                    <input type="text" maxlength="20" id="searchbox" title="Enter a Twitter username"> 
+                    <a href="#" onclick="searchBtnHandler();" ><img src="res/img/search/search.png" alt="search" /></a>
                         
                 </form>
+
             </div>
 
 
-            <div id="users" class="column roundedat sidebar">
-                <ul>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                    <li><a href="#">@random name</a></li>
-                </ul>
-            </div>
+            <div id="users" class="column roundedat sidebar"> <ul class="sidebarlist" ></ul> </div>
+
         </div>
 
     </div>
-    <footer>Created by (In alphabetical order):<ul>
-        <li><a href="http://www.facebook.com/alexander.north2" target="_blank">Alexander North</a></li>
-        <li><a href="http://www.facebook.com/ashokmenon" target="_blank">Ashok Menon</a></li>
-        <li>Leon Byford</li>
-        <li class="last"><a href="http://www.facebook.com/seb.atkinstall" target="_blank">Sebastian Nathan Atkinstall</a></li></ul></footer>
+    <footer>
+        Created by (In alphabetical order):
+        <ul>
+            <li><a href="http://www.facebook.com/alexander.north2" target="_blank">Alexander North</a></li>
+            <li><a href="http://www.facebook.com/ashokmenon" target="_blank">Ashok Menon</a></li>
+            <li>Leon Byford</li>
+            <li class="last"><a href="http://www.facebook.com/seb.atkinstall" target="_blank">Sebastian Nathan Atkinstall</a></li>
+        </ul>
+    </footer>
 </body>
 </html>
