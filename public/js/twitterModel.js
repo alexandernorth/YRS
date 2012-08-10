@@ -697,5 +697,5 @@ TwitterModel.prototype.step             = function() {
 
 }    
 
-TwitterModel.prototype.__topLevel       =   4;
+TwitterModel.prototype.__topLevel       =  10;
 TwitterModel.prototype.__maxDepth       =   2;
