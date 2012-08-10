@@ -1,7 +1,5 @@
-var engine;
+var model;
 $(document).ready( function(){
-
-    var world  = new World();
 
     var step   = function () {
 
@@ -139,26 +137,64 @@ $(document).ready( function(){
 
     };
 
-    var ent;
-    for ( i = 0; i < 100; i++ ) {
-        ent = new Entity();
+    var c  = $( "#canvas" ).get(  0 );
+    model  =    new TwitterModel( c );
 
-        ent.addStepFunction( step );
-        world.addEntity(      ent );
+    //model.buildGraphFor( "GaryCole" );
 
-    }
+    // Sample Graph:
+    // 1: "Joe", 2: "Bloggs", 3. "Jane", 4. "Doe", 5. "John", 6. "Brown", 7. Ashok, 8. Menon, 9. Alex, 10. North, 11. Leon, 12. Byford, 13. Seb, 14. Nathan, 15. Atkinstall
+    // 1->2, 1<-3, 1<-4, 4->2 5->6 5->3, 5->4, 6->7, 6->8, 6->9, 6->10, 7->8, 8->9, 10->9, 11->8, 11->7, 11->13, 12->11. 12->14, 13->12, 13->15, 12->15, 14->1, 4->13, 5->11
 
-    var c  = $( "#canvas" ).get( 0 );
+    /*model.updateGraph( "1", "2", -1 );
+    model.updateGraph( "1", "3", -1 );
+    model.updateGraph( "1", "4", +1 );
+    model.updateGraph( "4", "2", -1 );
+    model.updateGraph( "5", "6", -1 );
+    model.updateGraph( "5", "3", -1 );
+    model.updateGraph( "5", "4", -1 );
+    model.updateGraph( "6", "7", -1 );
+    model.updateGraph( "6", "8", -1 );
+    model.updateGraph( "6", "9", -1 );
+    model.updateGraph( "6", "10", -1 );
+    model.updateGraph( "7", "8", -1 );
+    model.updateGraph( "8", "9", -1 );
+    model.updateGraph( "10", "9", -1 );
+    model.updateGraph( "11", "8", -1 );
+    model.updateGraph( "11", "7", -1 );
+    model.updateGraph( "11", "13", -1 );
+    model.updateGraph( "12", "11", -1 );
+    model.updateGraph( "12", "14", -1 );
+    model.updateGraph( "13", "12", -1 );
+    model.updateGraph( "13", "15", -1 );
+    model.updateGraph( "12", "15", -1 );
+    model.updateGraph( "14", "1", -1 );
+    model.updateGraph( "4", "13", -1 );
+    model.updateGraph( "5", "11", -1 );
 
-    try {
+    model.names = { Joe: 1, Bloggs: 2, Jane: 3, Doe: 4, John: 5, Brown: 6, Ashok: 7, Menon: 8, Alex: 9, North: 10, Leon: 11, Byford: 12, Seb: 13, Nathan: 14, Atkinstall: 15 };
 
-        engine = new WebGLRenderEngine(  c, world );
+    model.tags  = { yrs2012: 5, yrshelp: 2, sapyrs: 1 };
 
-    }
-    catch( e ) {
-        console.log( "reverting", e );
-        //engine = new CanvasRenderEngine( c, world );
+    model.userTags = {
 
-    }
+        Joe: { yrs2012: 1, yrshelp: 1 },
+        Bloggs: { yrs2012: 1, sapyrs: 1 },
+        Jane: { yrs2012: 1, yrshelp: 1 },
+        Doe: { yrs2012: 1 },
+        John: { yrs2012: 1 },
+        Brown: {},
+        Ashok: {},
+        Menon: {},
+        Alex: {},
+        North: {},
+        Leon: {},
+        Byford: {},
+        Seb: {},
+        Nathan: {},
+        Atkinstall: {}
 
+    };*/
+
+    model.startSimulation();
 } );

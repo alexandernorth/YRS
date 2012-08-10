@@ -91,10 +91,10 @@ padding:0;
 	margin: 15px;
 }
 
-#users a, li {
+.sidebarlist li, .sidebarlist a {
 	text-decoration: none;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size: 20pt;
+	font-size: 16pt;
 	font-weight: bold;
 	color: #00A6EE;
 	letter-spacing: -2px;
@@ -193,7 +193,7 @@ text-decoration: none;
 	border-radius: 5px 5px 5px 5px;
 	color: white;
 	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
-	font-size: 20pt;
+	font-size: 16pt;
 	font-variant: small-caps;
 	font-weight: bold;
 	height: 30px;

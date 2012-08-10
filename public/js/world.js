@@ -1,8 +1,17 @@
 function World() {
     
     this.bodies = new Array();
+    this.tags   =          {};
 
 }
+
+World.prototype.addTag = function( tag ) {
+
+    tag.world             =               this;
+    tag.worldId           =   this.tags.length;
+    this.tags[ tag.name ] =                tag;
+
+};
 
 World.prototype.addEntity = function( entity ) {
     
