@@ -20,6 +20,35 @@ body {
 
 header {
 	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#selector{
+	float: right;
+
+}
+
+#selector ul{
+	list-style-type:none;
+margin:0;
+padding:0;
+}
+
+#selector li{
+	display: inline;
+}
+
+#selector a{
+	text-decoration: none;
+	padding: 4px;
+}
+
+#displayoption {
+	text-decoration: none;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 16pt;
+	color: #00A6EE;
+	letter-spacing: -2px;
 }
 
 #wrapper {
