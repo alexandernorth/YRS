@@ -651,7 +651,7 @@ TwitterModel.prototype.step             = function() {
     // Jolt
 
     if( velocity[0] == 0 && 
-        velocity[1] == 0 ) vec2.add( velocity, [ mRand() * 3, mRand() * 3 ], velocity );
+        velocity[1] == 0 ) vec2.add( velocity, [ mRand() * 3, mRand() * 2 ], velocity );
 
     if ( vec2.length( velocity ) > this.__maxV ) vec2.scale( vec2.normalize( velocity ), this.__maxV, velocity );
 
