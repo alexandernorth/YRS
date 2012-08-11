@@ -422,6 +422,10 @@ TwitterModel.prototype.startSimulation  = function() {
     $( "#users > ul li a" ).hover(  function() { _this.highlightUser(   this ); },
                                     function() { _this.unHighlightUser( this ); } );
 
+    $( "#stream > ul li a" ).hover( function() { _this.highlightTag(   this ); },
+                                    function() { _this.unHighlightTag( this ); } );
+
+
 };
 
 TwitterModel.prototype.highlightUser   = function( obj ) {
@@ -441,6 +445,22 @@ TwitterModel.prototype.unHighlightUser = function( obj ) {
 
     ent.forceColor = null;
 
+
+};
+
+TwitterModel.prototype.highlightTag = function( obj ) {
+    var tag  = $( obj ).get( 0 ).innerHTML.substr( 1 );
+    var ent  =                  this.world.tags[ tag ]; 
+
+    ent.forceColor = ent.trueColor;
+
+};
+
+TwitterModel.prototype.unHighlightTag = function( obj ) {
+    var tag  = $( obj ).get( 0 ).innerHTML.substr( 1 );
+    var ent  =                  this.world.tags[ tag ]; 
+
+    ent.forceColor = null;
 
 };
 

@@ -27,7 +27,7 @@ Entity.prototype.__maxF          =                                     0.1;
 Entity.prototype.__sF            =                                     0.5;
 Entity.prototype.__tagSF         =                                    10.0;
 
-Entity.prototype.__sepF          =                                      10;
+Entity.prototype.__sepF          =                                      50;
 Entity.prototype.__intF          =                                   0.003;
 Entity.prototype.__cohF          =                                       5;
 Entity.prototype.__aliF          =                                       5;

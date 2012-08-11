@@ -128,6 +128,18 @@ WebGLRenderEngine.prototype.draw   = function( time ) {
     for( var tagName in tags ) {
         tag = tags[ tagName ];
 
+        if ( tag.forceColor && !tag.oldColor  ) {
+
+            tag.oldColor =      tag.color;
+            tag.color    = tag.forceColor;
+
+        } else if ( tag.oldColor && !tag.forceColor ) {
+
+            tag.color    =   tag.oldColor;
+            tag.oldColor =           null;
+
+        }
+
         mat4.identity(                                                      scaleMat );
         mat4.identity(                                                   rotationMat );
         mat4.identity(                                                translationMat );
