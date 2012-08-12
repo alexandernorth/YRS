@@ -52,7 +52,7 @@ padding:0;
 }
 
 #wrapper {
-	width: 1150px;
+	width: 1250px;
 	overflow: hidden;
 	margin: 0 auto;
 }
@@ -75,7 +75,7 @@ padding:0;
 }
 
 .sidebar {
-	width: 200px;
+	width: 215px;
 }
 
 .column {
@@ -83,12 +83,18 @@ padding:0;
 }
 
 #canvas-wrapper {
-	width: 600px;
+	width: 670px;
 	height: 800px;
 }
 
 #canvas {
 	margin: 15px;
+}
+
+.sidebarlist {
+    height: 750px;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 .sidebarlist li, .sidebarlist a {
@@ -143,8 +149,9 @@ text-decoration: none;
 	letter-spacing: -2px;
 }
 
-#stream h2 {
+#stream .h2 {
 	font-family: Capriola, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 39px;
 	color: #00A6EE;
 	letter-spacing: -2px;
 	text-shadow: 0.03em 0.03em 0 #ddd;
