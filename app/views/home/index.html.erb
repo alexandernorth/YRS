@@ -58,9 +58,9 @@
 </head>
 
 <body>
-
+    <%= @logged %>
+    <%= link_to "Logout", '/logout' %>
     <div id="wrapper">
-        
         <header>
             <img src="res/img/Bird/Jpgs/logo.png" alt="#Flock" />
             
@@ -85,13 +85,16 @@
         <div class="column sidebar">
             
             <div class="column roundedsearch sidebar">
-
-                <form id="box">
-                   
-                    <input type="text" maxlength="20" id="searchbox" title="Enter a Twitter username"> 
-                    <a href="#" onclick="searchBtnHandler();" ><img src="res/img/search/search.png" alt="search" /></a>
-                        
-                </form>
+                <% if @logged %>
+                    <form id="box">
+                       
+                        <input type="text" maxlength="20" id="searchbox" title="Enter a Twitter username"> 
+                        <a href="#" onclick="searchBtnHandler();" ><img src="res/img/search/search.png" alt="search" /></a>
+                            
+                    </form>
+                <% else %>
+                    <%= link_to "Log in to Twitter", '/a' %>
+                <% end %>
 
             </div>
 
