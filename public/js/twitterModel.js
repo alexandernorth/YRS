@@ -90,7 +90,7 @@ TwitterModel.prototype.processFollowers = function( userId, callback, after ) {
 
         url      :              'http://api.twitter.com/1/followers/ids.json',
         dataType :                                                    'jsonp',
-        data     :                   { user_id: userId, stringify_ids: true },
+        data     :                         {id: userId, stringify_ids: true },
         context  :                                                       this,
         success  :                                                   callback,
         complete :                                                      after,
