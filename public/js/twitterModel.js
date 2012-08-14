@@ -88,9 +88,9 @@ TwitterModel.prototype.processFollowers = function( userId, callback, after ) {
     
     $.ajax( {
 
-        url      :              'http://api.twitter.com/1/followers/ids.json',
+        url      :                  'http://127.0.0.1:3000/request/followers',
         dataType :                                                    'jsonp',
-        data     :                         {id: userId, stringify_ids: true },
+        data     :                                               {id: userId},
         context  :                                                       this,
         success  :                                                   callback,
         complete :                                                      after,
@@ -105,9 +105,9 @@ TwitterModel.prototype.processFriends   = function( userId, callback, after ) {
     
     $.ajax( {
 
-        url      :                'http://api.twitter.com/1/friends/ids.json',
+        url      :                    'http://127.0.0.1:3000/request/friends',
         dataType :                                                    'jsonp',
-        data     :                   { user_id: userId, stringify_ids: true },
+        data     :                                               {id: userId},
         context  :                                                       this,
         success  :                                                   callback,
         complete :                                                      after,

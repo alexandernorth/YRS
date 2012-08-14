@@ -33,6 +33,6 @@ class RequestsController < ApplicationController
 			record = Request.new(:twitterID => params[:id], :requestType => params[:type], :time => Time.new, :response => handleRequest)
 			record.save
 		end
-		render :json => YAML::load(record.response).to_json, :callback => params[:callback]
+		render :json => {'ids' => YAML::load(record.response)}.to_json, :callback => params[:callback]
 	end
 end
