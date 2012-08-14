@@ -8,10 +8,10 @@ class HomeController < ApplicationController
 			  :consumer_key=>'l9tUlXD0IOoGhC9HnDJBA', :consumer_secret=>'9YZWGkxQJgieQ3Ta89mPE4xpXXhryEbRD9GS0WAt4',
 			  :token=>session[:tokens][:token], :token_secret=>session[:tokens][:token_secret]
 			})
-  		Rails.logger.warn "Second Request #{session[:id]}"
-  		user = client.users.lookup? :user_id => session[:id]
-  		Rails.logger.warn user.inspect
+  		@user = client.users.lookup? :user_id => session[:id]
+      Rails.logger.info @user[0].screen_name.inspect
   		@logged = true
+
   	else
   		@logged = false
   	end

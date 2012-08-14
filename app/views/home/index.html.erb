@@ -58,8 +58,12 @@
 </head>
 
 <body>
-    <%= @logged %>
-    <%= link_to "Logout", '/logout' %>
+    <% if @logged %>
+        <div id='meta'>
+            Logged in as <%= link_to "@#{@user[0].screen_name}", "http://twitter.com/#{@user[0].screen_name}" %> |
+            <%= link_to "Logout", '/logout' %>
+        </div>
+    <% end %>
     <div id="wrapper">
         <header>
             <img src="res/img/Bird/Jpgs/logo.png" alt="#Flock" />
@@ -86,14 +90,13 @@
             
             <div class="column roundedsearch sidebar">
                 <% if @logged %>
-                    <form id="box">
-                       
+                    <div id="box">
                         <input type="text" maxlength="20" id="searchbox" title="Enter a Twitter username"> 
                         <a href="#" onclick="searchBtnHandler();" ><img src="res/img/search/search.png" alt="search" /></a>
                             
-                    </form>
+                    </div>
                 <% else %>
-                    <%= link_to "Log in to Twitter", '/a' %>
+                    <a id='signIn' href='/a'> <img src="res/img/sign-in-with-twitter.png"/> </a>
                 <% end %>
 
             </div>
