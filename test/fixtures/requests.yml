@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  requestType: MyString
+  twitterID: 1
+  response: MyText
+  time: 2012-08-14 18:28:49
+
+two:
+  requestType: MyString
+  twitterID: 1
+  response: MyText
+  time: 2012-08-14 18:28:49
