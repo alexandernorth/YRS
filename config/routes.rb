@@ -8,7 +8,7 @@ YRS::Application.routes.draw do
   match 'a' => 'sessions#start_oauth'
   match 'a2' => 'sessions#finish_oauth'
   match 'logout' => 'sessions#logout'
-  match 'request/:type => 'requests#main'
+  match 'request/:type' => 'requests#main'
 
 
 
