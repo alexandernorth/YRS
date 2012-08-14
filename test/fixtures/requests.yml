@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  type: 
+  id: 1
+  time: 2012-08-13 23:37:19
+  response: MyText
+
+two:
+  type: 
+  id: 1
+  time: 2012-08-13 23:37:19
+  response: MyText
