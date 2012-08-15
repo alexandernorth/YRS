@@ -9,7 +9,6 @@ class HomeController < ApplicationController
 			  :token=>session[:tokens][:token], :token_secret=>session[:tokens][:token_secret]
 			})
   		@user = client.users.lookup? :user_id => session[:id]
-      Rails.logger.info @user[0].screen_name.inspect
   		@logged = true
 
   	else

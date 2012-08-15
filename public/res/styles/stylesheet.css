@@ -213,7 +213,7 @@ text-decoration: none;
 	-moz-border-top-right-radius: 10px;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid lightgray;
 }
 
 #box {
@@ -245,3 +245,21 @@ text-decoration: none;
 	box-shadow : 0 1px 1px rgba(0, 0, 0, 0.075) inset,
 				 0 0 8px rgba(82, 168, 236, 0.6);
 }
+
+#progressContainer{
+	position: absolute;
+	left: 1045px;
+	width: 150px;
+	height: 20px;
+	border-style:solid;
+	border-width:1px;
+	top: 185px;
+	display:none;
+}
+
+#progressBar{
+	width: 0px;
+	height: 20px;
+	background-color:blue;
+}
+
