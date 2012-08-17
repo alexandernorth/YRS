@@ -1,7 +1,5 @@
 class RequestsController < ApplicationController
 	def main
-		Rails.logger.warn params.inspect
-
 		def handleRequest
 			client = Grackle::Client.new(:auth=>{
 				  :type=>:oauth,

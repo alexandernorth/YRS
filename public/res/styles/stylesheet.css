@@ -248,12 +248,12 @@ text-decoration: none;
 
 #progressContainer{
 	position: absolute;
-	left: 1045px;
+	left: 1035px;
 	width: 150px;
 	height: 20px;
 	border-style:solid;
 	border-width:1px;
-	top: 185px;
+	top: 210px;
 	display:none;
 }
 

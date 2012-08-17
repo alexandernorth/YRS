@@ -1,3 +1,5 @@
+callNumber = 0
+
 function TwitterModel( canvas ) {
     
     this.allKnown =                                          {};
@@ -48,7 +50,8 @@ TwitterModel.prototype.nextWaitingToExpand = function() {
 
 TwitterModel.prototype.iterateLayer     = function() {
 
-
+    callNumber += 1
+    updateProgressBar(callNumber/40)
     this.generator = this.nextWaitingToExpand();
 
     if ( !this.generator ) {
@@ -374,8 +377,8 @@ TwitterModel.prototype.sampleableIds    = function(            ids ) {
 };
 
 TwitterModel.prototype.startSimulation  = function() {
-
-    var names = this.names;
+    $('#progressContainer').slideUp();
+    var names =      this.names;
     for ( var name in names ) {
         $( "#users > ul" ).append( "<li><a href=\'#\'>@" + name + "</a></li>" );
         this.addEntity( name );
