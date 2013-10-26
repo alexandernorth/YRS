@@ -58,9 +58,13 @@
 </head>
 
 <body>
-
+    <% if @logged %>
+        <div id='meta'>
+            Logged in as <%= link_to "@#{@user[0].screen_name}", "http://twitter.com/#{@user[0].screen_name}" %> |
+            <%= link_to "Logout", '/logout' %>
+        </div>
+    <% end %>
     <div id="wrapper">
-        
         <header>
             <img src="res/img/Bird/Jpgs/logo.png" alt="#Flock" />
             
@@ -73,9 +77,12 @@
                 </ul>
             </div>-->
         </header>
-
+        <div id='progressContainer'>
+            <div id='progressBar'>
+            </div>
+        </div>
         <div id="stream" class="column rounded sidebar" >
-            <h2>Tags</h2><br><ul class="sidebarlist"></ul>
+            <span class="h2">Tags</span><ul class="sidebarlist"></ul>
         </div>
 
         <div id="canvas-wrapper" class="column rounded" >
@@ -85,13 +92,15 @@
         <div class="column sidebar">
             
             <div class="column roundedsearch sidebar">
-
-                <form id="box">
-                   
-                    <input type="text" maxlength="20" id="searchbox" title="Enter a Twitter username"> 
-                    <a href="#" onclick="searchBtnHandler();" ><img src="res/img/search/search.png" alt="search" /></a>
-                        
-                </form>
+                <% if @logged %>
+                    <div id="box">
+                        <input type="text" maxlength="20" id="searchbox" title="Enter a Twitter username"> 
+                        <a href="#" onclick="searchBtnHandler();" ><img src="res/img/search/search.png" alt="search" /></a>
+                            
+                    </div>
+                <% else %>
+                    <a id='signIn' href='/a'> <img src="res/img/sign-in-with-twitter.png"/> </a>
+                <% end %>
 
             </div>
 

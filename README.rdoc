@@ -1,0 +1,12 @@
+#flock
+
+Twitter visualisation using the flocking algorithm
+
+http://harry.me/2011/02/17/neat-algorithms---flocking/
+
+
+* Ashok Menon
+* Alexander North
+* Leon Byford
+* Sebastian Nathan Atkinstall
+* Matthew Pickering

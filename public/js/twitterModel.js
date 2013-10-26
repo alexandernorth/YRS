@@ -1,6 +1,8 @@
+callNumber = 0
+
 function TwitterModel( canvas ) {
     
-    this.allKnown =                                 new Array();
+    this.allKnown =                                          {};
     this.graph    =                                          {};
     this.entities =                                          {};
     this.world    =                                 new World();
@@ -20,9 +22,9 @@ TwitterModel.prototype.buildGraphFor = function( user ) {
 
     this.resolveIdFor( user, function( data ) {
 
-        var curr_id        =   data.id_str;
-        this.waitingLayers = [ [curr_id] ];
-        this.allKnown.push(     curr_id  );
+        var curr_id              =   data.id_str;
+        this.waitingLayers       = [ [curr_id] ];
+        this.allKnown[ curr_id ] =             1;
 
     }, this.iterateLayer );
 
@@ -48,7 +50,8 @@ TwitterModel.prototype.nextWaitingToExpand = function() {
 
 TwitterModel.prototype.iterateLayer     = function() {
 
-
+    callNumber += 1
+    updateProgressBar(callNumber/40)
     this.generator = this.nextWaitingToExpand();
 
     if ( !this.generator ) {
@@ -88,9 +91,9 @@ TwitterModel.prototype.processFollowers = function( userId, callback, after ) {
     
     $.ajax( {
 
-        url      :              'http://api.twitter.com/1/followers/ids.json',
+        url      :                  'http://127.0.0.1:3000/request/followers',
         dataType :                                                    'jsonp',
-        data     :                   { user_id: userId, stringify_ids: true },
+        data     :                                               {id: userId},
         context  :                                                       this,
         success  :                                                   callback,
         complete :                                                      after,
@@ -105,9 +108,9 @@ TwitterModel.prototype.processFriends   = function( userId, callback, after ) {
     
     $.ajax( {
 
-        url      :                'http://api.twitter.com/1/friends/ids.json',
+        url      :                    'http://127.0.0.1:3000/request/friends',
         dataType :                                                    'jsonp',
-        data     :                   { user_id: userId, stringify_ids: true },
+        data     :                                               {id: userId},
         context  :                                                       this,
         success  :                                                   callback,
         complete :                                                      after,
@@ -204,7 +207,7 @@ TwitterModel.prototype.mergeWithKnown = function( ids )  {
     var known = this.allKnown;
     for ( var i = 0, l = ids.length; i < l; i++ ) {
 
-        known.push( ids[ i ] );
+        known[ ids[ i ] ] = 1;
 
     }
 
@@ -278,7 +281,7 @@ TwitterModel.prototype.processCurrentLayer = function() {
         id    = friend.ids[    k ];
         score = friend.scores[ k ];
 
-        this.allKnown.push(                      id );
+        this.allKnown[ id ] =                       1;
         entities.push(                           id );
         this.updateGraph( this.generator, id, score );
 
@@ -289,7 +292,7 @@ TwitterModel.prototype.processCurrentLayer = function() {
         id    = follower.ids[    k ];
         score = follower.scores[ k ];
 
-        this.allKnown.push(                      id );
+        this.allKnown[ id ] =                       1;
         entities.push(                           id );
         this.updateGraph( this.generator, id, score );
     }
@@ -299,7 +302,7 @@ TwitterModel.prototype.processCurrentLayer = function() {
         id    = both.ids[    k ];
         score = both.scores[ k ];
 
-        this.allKnown.push(                      id );
+        this.allKnown[ id ] =                       1;
         entities.push(                           id );
         this.updateGraph( this.generator, id, score );
 
@@ -362,8 +365,8 @@ TwitterModel.prototype.sampleableIds    = function(            ids ) {
     for( var i = 0, l = ids.length; i < l; i++ ) {
         id = ids[ i ];
 
-        if ( graph[          id ]       || 
-             known.indexOf(  id ) == -1  ) {
+        if (  graph[ id ] || 
+             !known[ id ]  ) {
 
             sampleable.push( i );
 
@@ -374,8 +377,8 @@ TwitterModel.prototype.sampleableIds    = function(            ids ) {
 };
 
 TwitterModel.prototype.startSimulation  = function() {
-
-    var names = this.names;
+    $('#progressContainer').slideUp();
+    var names =      this.names;
     for ( var name in names ) {
         $( "#users > ul" ).append( "<li><a href=\'#\'>@" + name + "</a></li>" );
         this.addEntity( name );
@@ -422,6 +425,10 @@ TwitterModel.prototype.startSimulation  = function() {
     $( "#users > ul li a" ).hover(  function() { _this.highlightUser(   this ); },
                                     function() { _this.unHighlightUser( this ); } );
 
+    $( "#stream > ul li a" ).hover( function() { _this.highlightTag(   this ); },
+                                    function() { _this.unHighlightTag( this ); } );
+
+
 };
 
 TwitterModel.prototype.highlightUser   = function( obj ) {
@@ -441,6 +448,22 @@ TwitterModel.prototype.unHighlightUser = function( obj ) {
 
     ent.forceColor = null;
 
+
+};
+
+TwitterModel.prototype.highlightTag = function( obj ) {
+    var tag  = $( obj ).get( 0 ).innerHTML.substr( 1 );
+    var ent  =                  this.world.tags[ tag ]; 
+
+    ent.forceColor = ent.trueColor;
+
+};
+
+TwitterModel.prototype.unHighlightTag = function( obj ) {
+    var tag  = $( obj ).get( 0 ).innerHTML.substr( 1 );
+    var ent  =                  this.world.tags[ tag ]; 
+
+    ent.forceColor = null;
 
 };
 
@@ -697,5 +720,5 @@ TwitterModel.prototype.step             = function() {
 
 }    
 
-TwitterModel.prototype.__topLevel       =   4;
+TwitterModel.prototype.__topLevel       =  10;
 TwitterModel.prototype.__maxDepth       =   2;
